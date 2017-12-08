@@ -1,0 +1,215 @@
+.topbar {
+    position: fixed;
+    z-index: 999;
+    left: 250px;
+    right: 0;
+    height: 50px;
+}
+
+.topbar>nav {
+    border: none;
+    background-color: #F7BE81
+}
+
+.topbar>nav .navbar-nav>li>a {
+    color: #fff !important;
+}
+
+.topbar>nav .navbar-nav>.active>a {
+    background-color: #fff !important;
+    color: #F7BE81 !important;
+}
+
+.topbar .searchbox input {
+    border: none !important;
+    border-radius: 20px !important;
+    box-shadow: none !important;
+}
+
+.topbar .searchbox .icon {
+    color: #888;
+}
+
+.topbar .navbar-default .navbar-nav>.open>a, .topbar .navbar-default .navbar-nav>.open>a:focus, .topbar .navbar-default .navbar-nav>.open>a:hover {
+    background-color: #F7BE81
+}
+
+.topbar .toolicon {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.topbar .toolicon:focus {
+    background-color: #F7BE81 !important;
+}
+
+.topbar .toolicon i {
+    line-height: 26px;
+    font-size: 22px;
+}
+
+.topbar .toolicon .badge {
+    position: absolute;
+    right: 4px;
+    top: 8px;
+    padding: 0 3px;
+    min-width: 14px;
+    height: 14px;
+    line-height: 13px;
+    background-color: #f00;
+    border-radius: 50%;
+    font-size: 11px;
+}
+
+.topbar .btn-default.navbar-btn {
+    border-color: #fff;
+    background-color: transparent;
+    color: #fff;
+}
+
+.topbar .btn-default.navbar-btn:hover {
+    border-color: #fff;
+    background-color: #fff;
+    color: #F7BE81
+}
+
+.sidebar {
+    position: relative;
+    float: left;
+    width: 250px;
+    min-height: 100%;
+    background-color: #fff;
+    border-right: 1px #eee solid;
+}
+
+.sidebar .panel {
+    margin-bottom: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom: 1px #F7BE81 solid;
+    box-shadow: none;
+}
+
+.sidebar .panel .panel-heading {
+    padding-left: 15px;
+    padding-top: 27px;
+    padding-bottom: 12px;
+    border-bottom: 1px #f3f3f3 solid;
+    background-color: transparent;
+    color: #F7BE81;
+    font-size: 17px;
+}
+
+.sidebar .list-group {
+    margin-bottom: 0;
+}
+
+.sidebar .list-group .list-group-item {
+    padding-left: 20px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-color: #f2f2f2;
+    color: #444;
+}
+
+.sidebar .list-group .active {
+    padding-left: 10px;
+    border-left: 5px #F7BE81 solid;
+    background-color: #f3f3f3 !important;
+    color: #F7BE81;
+    font-weight: 600;
+}
+
+.sidebar .list-group .list-group-item a {
+    color: #444;
+}
+
+.sidebar .list-group .list-group-item i {
+    width: 32px;
+    font-size: 16px;
+}
+
+.sidebar .list-group .list-group .list-group-item {
+    padding-left: 40px;
+}
+
+.sidebar .list-group .list-group .active {
+    padding-left: 35px;
+}
+
+.sidebar .list-group .list-group .list-group-item:first-child {
+    border-top-width: 1px;
+}
+
+.login-panel {
+    padding: 15px 10px;
+    background-color: #F7BE81;
+    color: #fff;
+}
+
+.login-panel .image {
+    float: left;
+    overflow: hidden;
+    width: 64px;
+    height: 64px;
+    text-align: center;
+    border-radius: 32px;
+    background-color: #fff;
+}
+
+.maincontent {
+    position: absolute;
+    margin-left: 250px;
+    padding: 50px 0 0 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    box-shadow: -1px 0 0 #eee;
+}
+
+.maincontent .content {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.nav-tabs {
+    padding: 15px 20px 0;
+    border: none;
+    background-color: #f3f3f3;
+}
+
+.nav-tabs>li {
+    margin-bottom: 0 !important;
+}
+
+.nav-tabs>li>a {
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 0 !important;
+    color: #666 !important;
+    text-transform: uppercase;
+}
+
+.nav-tabs>li>a>i {
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+.nav-tabs>.active {
+    margin-top: -2px;
+}
+
+.nav-tabs>.active>a {
+    border: 0;
+    border-top: 2px #d9ce00 solid !important;
+    background-color: #fff !important;
+    color: #a79e00 !important;
+    text-transform: uppercase;
+}
+
+.nav-tabs>.active>a>i {
+    color: #a79e00 !important;
+}

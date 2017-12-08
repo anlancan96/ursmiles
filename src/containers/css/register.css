@@ -1,0 +1,225 @@
+.register {
+    float: none;
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 60px 70px 50px;
+    border-bottom: 5px #d9ce00 solid !important;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #444;
+}
+
+.register .title {
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 26px;
+    color: #a79e00;
+    text-transform: uppercase;
+}
+
+.register .sub-title {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.register .sub-title span {
+    display: inline-block;
+    padding: 8px 30px;
+    border-radius: 20px;
+    background-color: #e8e8e8;
+    font-size: 15px;
+    color: #000;
+}
+
+.register-info {
+    margin-bottom: 10px;
+}
+
+.register label {
+    color: #888 !important;
+}
+
+.register input {
+    height: auto !important;
+    padding: 6px 0 !important;
+    border: 0 !important;
+    border-bottom: 1px #ccc solid !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.register select {
+    height: auto !important;
+    padding: 5px 0 !important;
+    border: 0 !important;
+    border-bottom: 1px #ccc solid !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.register input:focus, .register select:focus {
+    border-bottom: 1px #a79e00 solid !important;
+}
+
+.register .register_button {
+    text-align: center;
+}
+
+.register .register_button>button {
+    margin-top: 10px;
+    padding: 12px 30px;
+    width: 170px;
+    font-size: 16px;
+}
+
+.register .message {
+    display: block;
+    padding-bottom: 5px;
+    text-align: center;
+    color: #ff0000;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #fbfbfb inset !important;
+}
+
+.head-topbar {
+    line-height: 40px;
+    border-bottom: 1px #e8e8e8 solid;
+}
+
+.top-contact-info {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.top-contact-info li {
+    float: left;
+    margin-right: 20px;
+}
+
+.top-contact-info li a {
+    color: #aaa;
+}
+
+.top-social-link {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.top-social-link li {
+    float: left;
+    margin-left: 20px;
+}
+
+.top-social-link li a {
+    color: #b2b2b2;
+}
+
+.top-social-link li a i {
+    font-size: 17px;
+}
+
+.page_width {
+    width: 1100px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.logo {
+    display: inline-block;
+    margin: 18px 0;
+}
+
+.logo {
+    display: inline-block;
+    margin: 18px 0;
+}
+
+.mainmenu {
+    float: right;
+    margin-top: 40px;
+}
+
+.mainmenu a {
+    float: left;
+    padding: 5px 22px;
+    border-radius: 20px;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.mainmenu a:hover {
+    text-decoration: none;
+    background-color: #fafafa;
+    color: #a79e00 !important;
+}
+
+.mainmenu a:hover .glyphicon {
+    color: #a79e00;
+}
+
+.mainmenu a.active {
+    text-decoration: none;
+    background-color: #F7BE81;
+    color: #ffffff !important;
+}
+
+.mainmenu a.active .glyphicon {
+    color: #fff;
+}
+
+.mainmenu .glyphicon {
+    color: #aaa;
+    font-size: 15px;
+}
+
+.mainmenu .language {
+    float: left;
+    margin: 0 0 0 10px;
+    padding: 0 5px;
+    border: 1px #cccccc solid;
+    border-radius: 20px;
+}
+
+.mainmenu .language a {
+    padding: 4px 10px;
+    color: #999999;
+}
+
+.mainmenu a.active {
+    text-decoration: none;
+    background-color: #F7BE81;
+    color: #ffffff !important;
+}
+
+.project {
+    overflow: hidden;
+    padding: 40px 0 30px;
+    border-bottom: 4px #d9ce00 solid;
+    background: #eee;
+}
+
+.project a {
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+
+.project a img {
+    height: 100px;
+}
+
+.project a:hover img {
+    opacity: 0.5;
+}
+
+.copyright {
+    padding: 20px 0;
+    background: #444444;
+    color: #ffffff;
+    text-align: center;
+}
