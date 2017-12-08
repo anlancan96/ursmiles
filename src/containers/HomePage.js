@@ -6,25 +6,25 @@ import Footer from '../components/Footer';
 
 class HomePage extends React.Component {
     state= {
-        username : '',
-        password : ''
+        Username : '',
+        Password : '',
+        
     }
 
     change = (e) => {this.setState({[e.target.name] : e.target.value})}
 
     onSubmit = (e) => {
-        e.preventDefault();
-        const {username,password} = this.state;
+        const {Username,Password} = this.state;
         axios({
             method: 'post',
-            url: 'http://localhost:8080/login',
+            url: 'http://localhost:8080/v1/account/login',
             data: {
-              Username: username,
-              Password: password,
+              Username,
+              Password,
             },
             })
             .then((respone) => {
-                console.log(respone);
+               console.log(respone);
             })
             .catch(error => {
                 console.log('co loi');
@@ -54,11 +54,11 @@ class HomePage extends React.Component {
                             <div>
                                 <div className="form-group">
                                     <i className="fa fa-user"></i>
-                                    <input type="text" name="username"  className="form-control" placeholder="Tên đăng nhập" onChange={this.change}/>
+                                    <input type="text" name="Username"  className="form-control" placeholder="Tên đăng nhập" onChange={this.change}/>
                                 </div>
                                 <div className="form-group">
                                     <i className="fa fa-key"></i>
-                                    <input type="password" name="password"  className="form-control" placeholder="Mật khẩu" onChange={this.change}/>
+                                    <input type="password" name="Password"  className="form-control" placeholder="Mật khẩu" onChange={this.change}/>
                                 </div>
                                 <div className="login_button">
                                     <button onClick={this.onSubmit}  className="btn btn-default">Đăng nhập</button>
