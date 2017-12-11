@@ -51,7 +51,7 @@ class PatientInfo extends Component {
     callApi(state) {
         axios({
             method: 'post',
-            url: `http://localhost:8080/v1/benhnhan/edit/${this.state.MaSo}`,
+            url: `http://localhost:3001/v1/benhnhan/edit/${this.state.MaSo}`,
             data: {
               ...state
             },
