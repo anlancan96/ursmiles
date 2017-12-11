@@ -11,6 +11,9 @@ export default class Main extends React.Component {
     componentDidMount() {
         !this.props.isLogin && this.props.history.push('/');
     }
+    componentWillReceiveProps(nextProps) {
+        !nextProps.isLogin && this.props.history.push('/');
+    }
     render() {
         return (
             <div>

@@ -9,7 +9,6 @@ import RegisterPage from '../RegisterPage';
 
 import styles from './styles';
 
-import { increase } from './actions';
 
 class App extends React.Component {
     componentDidMount() {
@@ -36,7 +35,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = ({
-    increase,
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

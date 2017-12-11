@@ -1,14 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import App from './containers/App';
+import jwt from 'jsonwebtoken';
 
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+import App from './containers/App';
+
 import configureStore from './configureStore';
+import { setCurrentUser } from './containers/App/actions';
 
 const store = configureStore();
+
+if (localStorage.user) {
+    const verifyUser = jwt.verify(localStorage.user, 'ursmiles');
+    store.dispatch(setCurrentUser(verifyUser.userData));
+}
 
 const AppConfig = () => (
     <Provider store={store}>

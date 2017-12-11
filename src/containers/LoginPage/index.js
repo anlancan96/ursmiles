@@ -6,41 +6,35 @@ import { connect } from 'react-redux';
 import './home.css';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import { loginRequest } from './actions';
 
 class LoginPage extends React.Component {
     state= {
         Username : '',
         Password : '',
-        isMatch: true,
-        message  : 'Tên truy cập hoặc mật khẩu không đúng'
+        message  : '',
     }
 
-    change = (e) => {this.setState({[e.target.name] : e.target.value})}
-
-    onSubmit = (e) => {
-        e.preventDefault();
-        const {Username,Password} = this.state;
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/v1/account/login',
-            data: {
-              Username,
-              Password,
-            },
-            })
-            .then((respone) => {
-                console.log(respone);
-                let status = respone.data.status;
-                this.setState({isMatch : status});
-                if(this.state.isMatch){
-                    window.location.href = '/private/userInfo';
-                }
-            })
-            .catch(error => {
-                console.log('co loi');
-            });
+    componentWillUpdate(nextProps) {
+        nextProps.isLogin && this.props.history.push('/private');
     }
+
+    change = (e) => { this.setState({ [e.target.name] : e.target.value })}
+
+    login = () => {
+        const { Username, Password } = this.state;
+        if (Username === '') {
+            this.setState({ message: 'Tên tài khoản không hợp lệ!' });
+        } else if (Password === '') {
+            this.setState({ message: 'Mật khẩu không hợp lệ!' });
+        } else {
+            this.setState({ message: '' });
+            this.props.loginRequest(Username, Password);
+        }
+    }
+
     render(){
+        const { isLogin, isLoading, errorMessage } = this.props;
         return (
             <div>
             <Header/>
@@ -58,7 +52,7 @@ class LoginPage extends React.Component {
                             <li><span className="glyphicon glyphicon-ok-sign"></span>Tính năng bảo mật cao.</li>
                         </ul>
                     </div>
-                    {!this.props.isLogin && <div  id="LoginApp" className="login">
+                    {!isLogin && <div  id="LoginApp" className="login">
                         <div>
                             <h2 className="title"><i className="fa fa-lock"></i></h2>
                             <div>
@@ -70,19 +64,18 @@ class LoginPage extends React.Component {
                                     <i className="fa fa-key"></i>
                                     <input type="password" name="Password"  className="form-control" placeholder="Mật khẩu" onChange={this.change}/>
                                 </div>
-                                {   (this.state.isMatch)? 
-                                        null:
-                                        <div className="message">
-                                            {this.state.message}
-                                        </div>
-                                }
+                                <div className="message">{this.state.message}</div>
+                                <div className="message">{this.props.errorMessage}</div>
                                 <div className="login_button">
-                                    <button onClick={this.onSubmit}  className="btn btn-default">Đăng nhập</button>
+                                    <button onClick={this.login} className="btn btn-default" disabled={isLoading}>Đăng nhập</button>
                                     <Link to="/register" className="btn btn-default btn-register">Đăng ký</Link>
                                 </div>
                             </div>
                         </div>
                     </div>}
+                    {isLogin &&
+                        <button className="btn btn-default" onClick={() => this.props.history.push('/private') } >Tiếp tục</button>
+                    }
                 </div>
             </div>
 
@@ -143,6 +136,12 @@ class LoginPage extends React.Component {
 
 const mapStateToProps = state => ({
     isLogin: state.appReducer.isLogin,
+    isLoading: state.loginReducer.isLoading,
+    errorMessage: state.loginReducer.errorMessage,
 });
 
-export default connect(mapStateToProps, {})(LoginPage);
+const mapsDispatchToProps = ({
+    loginRequest,
+});
+
+export default connect(mapStateToProps, mapsDispatchToProps)(LoginPage);

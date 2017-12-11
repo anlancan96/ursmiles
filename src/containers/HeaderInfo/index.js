@@ -10,7 +10,7 @@ class HeaderInfo extends Component {
                             <div className="navbar-header">
                                 <a className="navbar-brand" href="#">BS chỉnh nha</a>
                             </div>
-                            <a href="" className="btn btn-default navbar-btn"><i className="fa fa-plus"></i>Thêm hồ sơ</a>
+                            <a href="#" className="btn btn-default navbar-btn"><i className="fa fa-plus"></i>Thêm hồ sơ</a>
                             <div className="navbar-form navbar-right" role="search">
                                 <div className="form-group has-feedback searchbox">
                                     <input type="text" id="tbxMainKeyword" className="form-control"/>
@@ -22,7 +22,7 @@ class HeaderInfo extends Component {
                                         <a href="#" className="toolicon" data-toggle="dropdown"><i className="fa fa-comments" style={{color: '#fff'}}></i><span className="badge"></span></a>
                                         <ul className="dropdown-menu notify-box">
                                             <li>
-                                                <a href="">
+                                                <a href="#">
                                                     <span className="avatar" ></span>
                                                     <span className="notify-info">
                                                         <span className="username"></span>
@@ -33,9 +33,9 @@ class HeaderInfo extends Component {
                                             </li>
                                         </ul>
                                     </li>
-                                <li><span><a href="" className="btn btn-default navbar-btn">EN</a></span></li>
+                                <li><span><a href="#" className="btn btn-default navbar-btn">EN</a></span></li>
                                 <li><a className="toolicon"><i className="fa fa-envelope"></i></a></li>
-                                <li><a href="" className="toolicon" target="_blank"><i className="fa fa-question-circle"></i></a></li>
+                                <li><a href="#" className="toolicon" target="_blank"><i className="fa fa-question-circle"></i></a></li>
                             </ul>
                         </div>     
                     </nav>

@@ -26,7 +26,7 @@ class Register extends Component {
         const {Username,Password,Email1,Email2,HoTen,DienThoai,DiaChi} = this.state;
         axios({
             method: 'post',
-            url: 'http://localhost:8080/v1/account/register',
+            url: 'http://localhost:3001/v1/account/register',
             data: {
               Username,
               Password,
