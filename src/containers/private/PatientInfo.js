@@ -1,25 +1,94 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import Sidebar from '../../components/Sidebar';
 import HeaderInfo from '../../components/HeaderInfo';
 import '../css/patientInfo.css';
+import axios from 'axios';
 
 class PatientInfo extends Component {
+    state = {
+        NgayBatDau: null,
+        NgaySinh:null,
+        TrangThai: '',
+        BacSi: '',
+        Ho: '',
+        Ten: '',
+        MaSo:'',
+        GioiTinh:'',
+        DanToc:'',
+        DiaChi:'',
+        DienThoai:'',
+        Email:'',
+        Facebook:'',
+        Twitter:'',
+        DaPhauThuat:0,
+        UongThuocNguaThai:0,
+        HenSuyen:0,
+        MauKhoDong:0,
+        HoaTriLieu:0,
+        XaTri:0,
+        BenhLyHoHap:0,
+        BenhLyTieuHoa:0,
+        Lao:0,
+        ChoConBu:0,
+        CoThai:0,
+        TieuDuong:0,
+        DongKinh:0,
+        HuyetHuu:0,
+        CaoHuyetAp:0,
+        BenhLyTuanHoan:0,
+        HIV:0,
+        DiUng:0,
+        HoiMieng:0,
+        ChayMauNuou:0,
+        BenhLyNhaChu:0,
+        NghienRang:0,
+        LyDoDenKham:'',
+        ThuocDangSuDung:''
+    }
+
+    change = e => this.setState({ [e.target.name]: e.target.value });
+
+    callApi(state) {
+        axios({
+            method: 'post',
+            url: `http://localhost:8080/v1/benhnhan/edit/${this.state.MaSo}`,
+            data: {
+              state
+            },
+            })
+            .then((respone) => {
+               console.log(respone);
+            })
+            .catch(error => {
+                console.log('co loi');
+            });
+    }
+
+    save = e => {
+        e.preventDefault();  
+        this.callApi(this.state);       
+    }
+
     render() {
         return (
             <div>
                 <HeaderInfo />
                 <Sidebar />
                 <div id="RecordHanhChinhApp" className="maincontent">
-                    <div className="pull-right form-inline" style={{margin: '14px 20px 0 0'}}>
+                    <div className="pull-right form-inline" style={{ margin: '14px 20px 0 0' }}>
                         <span className="form-inline">
                             <button type="button" disabled className="btn btn-default" style={{ fontWeight: 'bold', cursor: 'default' }}></button>
                             <button type="button" className="btn btn-primary-clear"><i className="fa fa-edit" />Chỉnh sửa</button>
                         </span>
                         <span>
-                            <select className="form-control">
-                                <option value="">Trạng thái</option>
+                            <select onChange={this.change} className="form-control">
+                                <option value="TrangThai">Trạng thái</option>
+                                <option value="Kham">Khám</option>
+                                <option value="ChinhNha">Chỉnh nha
+
+                                </option>
                             </select>
-                            <button type="button" className="btn btn-primary"><i className="fa fa-floppy-o"></i>Lưu</button>
+                            <button onClick={this.save} className="btn btn-primary"><i className="fa fa-floppy-o"></i>Lưu</button>
                         </span>
                     </div>
                     <h1 className="maintitle">Thông tin hành chính</h1>
@@ -29,7 +98,7 @@ class PatientInfo extends Component {
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Ngày bắt đầu</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" className="form-control" name="a"/>
+                                        <input type="date" onChange={this.change} className="form-control" name="NgayBatDau" />
                                     </div>
                                 </div>
                             </div>
@@ -37,13 +106,13 @@ class PatientInfo extends Component {
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Bác sĩ</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text"  className="form-control" />
+                                        <input type="text" name="BacSi" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-3">
-                                <div className="avatar avatar-3-4" style={{position:'absolute', marginLeft:'20%'}}></div>
-                                <div  className="imageupload-tool" style={{marginLeft:'20%', position:'absolute' ,top:'145px', left:'40px'}}>
+                                <img className="avatar avatar-3-4" src="./images/avatar-default.png" style={{ position: 'absolute', marginLeft: '20%' }} />
+                                <div className="imageupload-tool" style={{ marginLeft: '20%', position: 'absolute', top: '145px', left: '40px' }}>
                                     <div className="upload-btn">
                                         <button type="button" className="btn btn-primary btn-sm btn-block"><i className="fa fa-camera"></i></button>
                                         <input type="file" id="ipfImage" />
@@ -51,11 +120,11 @@ class PatientInfo extends Component {
                                     <button type="button" className="btn btn-danger btn-sm"><i className="fa fa-trash"></i></button>
                                 </div>
                             </div>
-                            <div className="col-sm-4" style={{clear:'left'}}>
+                            <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Họ</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text"  className="form-control" />
+                                        <input type="text" name="Ho" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -63,15 +132,15 @@ class PatientInfo extends Component {
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Tên</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text"  className="form-control" />
+                                        <input type="text" name="Ten" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-sm-4" style={{clear:'left'}}>
+                            <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Ngày sinh</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" className="form-control" />
+                                        <input type="date" name="NgaySinh" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -79,93 +148,70 @@ class PatientInfo extends Component {
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Giới tính</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <select className="form-control">
-                                            <option value="0"></option>
-                                            <option value="1">Nam</option>
-                                            <option value="2">Nữ</option>
+                                        <select name="GioiTinh" onChange={this.change} className="form-control">
+                                            <option value="Male">Nam</option>
+                                            <option value="Female">Nữ</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-sm-4" style={{clear:'left'}}>
+                            <div className="col-sm-4" style={{ clear: 'left' }}>
+                                <div className="form-group">
+                                    <label className="col-xs-4 col-sm-5 control-label">Dân tộc</label>
+                                    <div className="col-xs-8 col-sm-7">
+                                        <input type="text" name="DanToc" onChange={this.change} className="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Địa chỉ</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text"  className="form-control" />
+                                        <input type="text" name="DiaChi" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-sm-4">
-                                <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Quận</label>
-                                    <div className="col-xs-8 col-sm-7">
-                                        <input type="text" className="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4" style={{clear:'left'}}>
-                                <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Tỉnh thành</label>
-                                    <div className="col-xs-8 col-sm-7">
-                                        <input type="text"className="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Quốc gia</label>
-                                    <div className="col-xs-8 col-sm-7">
-                                        <input type="text" className="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4" style={{clear:'left'}}>
+                           
+                           
+                            <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Số di động</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text"  className="form-control" />
+                                        <input type="text" name="DienThoai" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-sm-4">
-                                <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Số điện thoại bàn</label>
-                                    <div className="col-xs-8 col-sm-7">
-                                        <input type="text" className="form-control" />
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div className="col-sm-4">
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Mã số</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text"  className="form-control" />
+                                        <input type="text" name="MaSo" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-sm-4" style={{clear:'left'}}>
+                            <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Email</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text"  name="Email" className="form-control" />
-                                        <div className="alert alert-danger">Xin vui lòng nhập chính xác email</div>
-                                        {/*  */}
+                                        <input type="text" name="Email" className="form-control" />
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-4">
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Số fax</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">Facebook</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" className="form-control" />
+                                        <input type="text" name="Facebook" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-4">
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Dân tộc</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">Twitter</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text"  className="form-control" />
+                                        <input type="text"name="Twitter" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -179,92 +225,92 @@ class PatientInfo extends Component {
                                 <div id="TieuSuYKhoa" className="panel-body checkbox-list row-xs">
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="DaPhauThuat"/>Đã phẫu thuật
+                                            <input type="checkbox" name="DaPhauThuat" value="1"/>Đã phẫu thuật
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="ChoConBu"/>Cho con bú
+                                            <input type="checkbox" name="ChoConBu" value="1" />Cho con bú
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                        <input type="checkbox" value="UongThuocNguaThai"/>Uống thuốc ngừa thai
+                                            <input type="checkbox" name="UongThuocNguaThai" value="1"/>Uống thuốc ngừa thai
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="CoThai"/>Có thai
+                                            <input type="checkbox" name="CoThai" value="1" />Có thai
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="HenSuyen"/>Hen suyễn
+                                            <input type="checkbox" name="HenSuyen" value="1"/>Hen suyễn
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="TieuDuong"/>Tiểu đường
+                                            <input type="checkbox" name="TieuDuong"value="1" />Tiểu đường
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="MauKhoDong"/>Máu khó đông
+                                            <input type="checkbox" name="MauKhoDong" value="1"/>Máu khó đông
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="DongKinh"/>Động kinh
+                                            <input type="checkbox" name="DongKinh" value="1"/>Động kinh
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="HoaTriLieu"/>Hóa Trị Liệu
+                                            <input type="checkbox" name="HoaTriLieu" value="1"/>Hóa Trị Liệu
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="HuyetHuu"/>Huyết hữu
+                                            <input type="checkbox" name="HuyetHuu" value="1"/>Huyết hữu
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="XaTri"/>Xạ trị
-                                        </label>
-                                    </div> 
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" value="CaoHuyetAp"/>Cao huyết áp
+                                            <input type="checkbox" name="XaTri" value="1"/>Xạ trị
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="BenhLyHoHap"/>Bệnh lý hô hấp
+                                            <input type="checkbox" name="CaoHuyetAp" value="1"/>Cao huyết áp
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="BenhLyTuanHoan"/>Bệnh lý tuần hoàn
+                                            <input type="checkbox" name="BenhLyHoHap" value="1" />Bệnh lý hô hấp
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="BenhLyTieuHoa"/>Bệnh lý tiêu hóa
+                                            <input type="checkbox" name="BenhLyTuanHoan" value="1" />Bệnh lý tuần hoàn
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="HIV/AIDS"/>HIV/AIDS
+                                            <input type="checkbox" name="BenhLyTieuHoa"value="1" />Bệnh lý tiêu hóa
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="Lao"/>Lao
+                                            <input type="checkbox" name="HIV/AIDS" value="1"/>HIV/AIDS
                                         </label>
                                     </div>
                                     <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="Dị ứng"/>Dị ứng
+                                            <input type="checkbox" name="Lao" value="1"/>Lao
+                                        </label>
+                                    </div>
+                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
+                                        <label>
+                                            <input type="checkbox" name="DiUng" value="1"/>Dị ứng
                                         </label>
                                     </div>
 
@@ -277,30 +323,30 @@ class PatientInfo extends Component {
                                     <h3 className="panel-title">Tiểu sử nha khoa</h3>
                                 </div>
                                 <div id="TieuSuNhaKhoa" className="panel-body">
-                                    <div  className="col-md-6 col-lg-6 checkbox">
+                                    <div className="col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="HoiMieng"/>Hôi miệng
+                                            <input type="checkbox" name="HoiMieng" value="1"/>Hôi miệng
                                         </label>
                                     </div>
-                                    <div  className="col-md-6 col-lg-6 checkbox">
+                                    <div className="col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="BenhLyNhaChu"/>Bệnh lý nha chu
+                                            <input type="checkbox" name="BenhLyNhaChu" value="1"/>Bệnh lý nha chu
                                         </label>
                                     </div>
-                                
-                                    <div  className="col-md-6 col-lg-6 checkbox">
+
+                                    <div className="col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="ChayMauNuou"/>Chảy máu nướu
+                                            <input type="checkbox" name="ChayMauNuou"value="1" />Chảy máu nướu
                                         </label>
                                     </div>
-                                    <div  className="col-md-6 col-lg-6 checkbox">
+                                    <div className="col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="NghienRang"/>Nghiến răng
+                                            <input type="checkbox" name="NghienRang" value="1"/>Nghiến răng
                                         </label>
                                     </div>
-                                    <div  className="col-md-6 col-lg-6 checkbox">
+                                    <div className="col-md-6 col-lg-6 checkbox">
                                         <label>
-                                            <input type="checkbox" value="RangNhayCam"/>Răng nhạy cảm
+                                            <input type="checkbox" name="RangNhayCam" value="1"/>Răng nhạy cảm
                                         </label>
                                     </div>
 
@@ -308,7 +354,7 @@ class PatientInfo extends Component {
                                         <div className="form-group">
                                             <label className="col-xs-4 col-sm-4 control-label">Lý do đến khám</label>
                                             <div className="col-xs-8 col-sm-8">
-                                                <input type="text" className="form-control" />
+                                                <input type="text" name="LyDoDenKham" onChange={this.change} className="form-control" />
                                             </div>
                                         </div>
                                     </div>
@@ -319,7 +365,7 @@ class PatientInfo extends Component {
                                     <h3 className="panel-title">Các thuốc đang sử dụng</h3>
                                 </div>
                                 <div className="panel-body">
-                                    <textarea className="form-control" style={{height:'53px'}}></textarea>
+                                    <textarea className="form-control"name="ThuocDangSuDung" onChange={this.change} style={{ height: '53px' }}></textarea>
                                 </div>
                             </div>
                         </div>
@@ -327,7 +373,7 @@ class PatientInfo extends Component {
                         <div className="overlay"></div>
                     </form>
                 </div>
-                
+
             </div>
         )
     }

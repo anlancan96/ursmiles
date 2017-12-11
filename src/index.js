@@ -9,8 +9,8 @@ import UserInfo from './containers/private/UserInfo';
 ReactDOM.render((
     <BrowserRouter>
       <Switch>
-          <Route path="/UserInfo" component={UserInfo} />
-          <Route path="/PatientInfo" component={PatientInfo} />
+          <Route path="/private/userInfo" component={UserInfo} />
+          <Route path="/patientInfo" component={PatientInfo} />
           <Route path="/register" component={Register}/> 
           <Route path="/" component={HomePage} />     
       </Switch>

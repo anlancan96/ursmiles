@@ -8,12 +8,14 @@ class HomePage extends React.Component {
     state= {
         Username : '',
         Password : '',
-        
+        isMatch: true,
+        message  : 'Tên truy cập hoặc mật khẩu không đúng'
     }
 
     change = (e) => {this.setState({[e.target.name] : e.target.value})}
 
     onSubmit = (e) => {
+        e.preventDefault();
         const {Username,Password} = this.state;
         axios({
             method: 'post',
@@ -24,7 +26,12 @@ class HomePage extends React.Component {
             },
             })
             .then((respone) => {
-               console.log(respone);
+                console.log(respone);
+                let status = respone.data.status;
+                this.setState({isMatch : status});
+                if(this.state.isMatch){
+                    window.location.href = '/private/userInfo';
+                }
             })
             .catch(error => {
                 console.log('co loi');
@@ -60,9 +67,15 @@ class HomePage extends React.Component {
                                     <i className="fa fa-key"></i>
                                     <input type="password" name="Password"  className="form-control" placeholder="Mật khẩu" onChange={this.change}/>
                                 </div>
+                                {   (this.state.isMatch)? 
+                                        null:
+                                        <div className="message">
+                                            {this.state.message}
+                                        </div>
+                                }
                                 <div className="login_button">
                                     <button onClick={this.onSubmit}  className="btn btn-default">Đăng nhập</button>
-                                    <a href="" className="btn btn-default btn-register">Đăng ký</a>
+                                    <a href="/register" className="btn btn-default btn-register">Đăng ký</a>
                                 </div>
                             </div>
                         </div>
