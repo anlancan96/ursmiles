@@ -53,7 +53,7 @@ class PatientInfo extends Component {
             method: 'post',
             url: `http://localhost:8080/v1/benhnhan/edit/${this.state.MaSo}`,
             data: {
-              state
+              ...state
             },
             })
             .then((respone) => {
