@@ -1,18 +1,21 @@
-import React from'react';
-import ReactDOM from'react-dom';
-import {Route,Switch,BrowserRouter} from 'react-router-dom';
-import HomePage from './containers/HomePage';
-import Register from './containers/Register';
-import PatientInfo from './containers/private/PatientInfo';
-import UserInfo from './containers/private/UserInfo';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-ReactDOM.render((
-    <BrowserRouter>
-      <Switch>
-          <Route path="/private/userInfo" component={UserInfo} />
-          <Route path="/patientInfo" component={PatientInfo} />
-          <Route path="/register" component={Register}/> 
-          <Route path="/" component={HomePage} />     
-      </Switch>
-    </BrowserRouter>  
-  ), document.getElementById('root'));
+import App from './containers/App';
+
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import configureStore from './configureStore';
+
+const store = configureStore();
+
+const AppConfig = () => (
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>
+);
+
+ReactDOM.render(<AppConfig/>, document.getElementById('root'));

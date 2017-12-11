@@ -1,10 +1,13 @@
-import React,{Component} from 'react';
-import './css/home.css';
+import React, { Component } from 'react';
 import axios from 'axios';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-class HomePage extends React.Component {
+import './home.css';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+
+class LoginPage extends React.Component {
     state= {
         Username : '',
         Password : '',
@@ -19,7 +22,7 @@ class HomePage extends React.Component {
         const {Username,Password} = this.state;
         axios({
             method: 'post',
-            url: 'http://localhost:3001/v1/account/login',
+            url: 'http://localhost:8080/v1/account/login',
             data: {
               Username,
               Password,
@@ -55,7 +58,7 @@ class HomePage extends React.Component {
                             <li><span className="glyphicon glyphicon-ok-sign"></span>Tính năng bảo mật cao.</li>
                         </ul>
                     </div>
-                    <div  id="LoginApp" className="login">
+                    {!this.props.isLogin && <div  id="LoginApp" className="login">
                         <div>
                             <h2 className="title"><i className="fa fa-lock"></i></h2>
                             <div>
@@ -75,11 +78,11 @@ class HomePage extends React.Component {
                                 }
                                 <div className="login_button">
                                     <button onClick={this.onSubmit}  className="btn btn-default">Đăng nhập</button>
-                                    <a href="/register" className="btn btn-default btn-register">Đăng ký</a>
+                                    <Link to="/register" className="btn btn-default btn-register">Đăng ký</Link>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>}
                 </div>
             </div>
 
@@ -138,4 +141,8 @@ class HomePage extends React.Component {
     }
 }
 
-export default HomePage;
+const mapStateToProps = state => ({
+    isLogin: state.appReducer.isLogin,
+});
+
+export default connect(mapStateToProps, {})(LoginPage);
