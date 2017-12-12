@@ -30,6 +30,10 @@ class LoginPage extends React.Component {
 
     change = (e) => { this.setState({ [e.target.name] : e.target.value })}
 
+    onEnter = e => {
+        if(e.keyCode === 13) this.login();
+    }
+
     login = () => {
         const { Username, Password } = this.state;
         if (Username === '') {
@@ -62,17 +66,17 @@ class LoginPage extends React.Component {
                             <li><span className="glyphicon glyphicon-ok-sign"></span>Tính năng bảo mật cao.</li>
                         </ul>
                     </div>
-                    {!isLogin && <div  id="LoginApp" className="login">
+                    {!isLogin && <div  id="LoginApp" className="login" >
                         <div>
                             <h2 className="title"><i className="fa fa-lock"></i></h2>
                             <div>
                                 <div className="form-group">
                                     <i className="fa fa-user"></i>
-                                    <input type="text" name="Username" value={Username} className="form-control" placeholder="Tên đăng nhập" onChange={this.change}/>
+                                    <input type="text" name="Username" value={Username} className="form-control" placeholder="Tên đăng nhập" onChange={this.change} onKeyDown={this.onEnter}/>
                                 </div>
                                 <div className="form-group">
                                     <i className="fa fa-key"></i>
-                                    <input type="password" name="Password" value={Password} className="form-control" placeholder="Mật khẩu" onChange={this.change}/>
+                                    <input type="password" name="Password" value={Password} className="form-control" placeholder="Mật khẩu" onChange={this.change} onKeyDown={this.onEnter}/>
                                 </div>
                                 <div className="message">{message}</div>
                                 <div className="message">{errorMessage}</div>

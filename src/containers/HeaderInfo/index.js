@@ -8,7 +8,7 @@ class HeaderInfo extends Component {
                     <nav className="navbar navbar-default" role="navigation">
                         <div className="container-fluid">
                             <div className="navbar-header">
-                                <a className="navbar-brand" href="#">BS chỉnh nha</a>
+                                <a className="navbar-brand" href="#">Quản lý bệnh án</a>
                             </div>
                             <a href="#" className="btn btn-default navbar-btn"><i className="fa fa-plus"></i>Thêm hồ sơ</a>
                             <div className="navbar-form navbar-right" role="search">
