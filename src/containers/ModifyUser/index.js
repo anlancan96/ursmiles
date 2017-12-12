@@ -1,121 +1,144 @@
-import React,{Component} from 'react';
-import  './register.css';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import md5 from 'md5';
+
+import { modifyUserRequest } from './actions';
+import './register.css';
 
 class ModifyUser extends Component {
-    
+
     state = {
-        Username  : '',
-        Email1    : '',
-        Password  : '',
+        Username: this.props.userData.Username,
+        NewPassword: '',
         Repassword: '',
-        HoTen     :'',
-        DienThoai :'',
-        Email2    :'',
-        DiaChi    :'',
-        isMatch   :1,
-        message   :''
+        HoTen: this.props.userData.HoTen || '',
+        Email1: this.props.userData.Email1 || '',
+        Email2: this.props.userData.Email2 || '',
+        DienThoai: this.props.userData.DienThoai || '',
+        DiaChi: this.props.userData.DiaChi || '',
+
+        isChangePassword: false,
+        message: '',
+        Password: '',
     }
 
-    change = e => this.setState({[e.target.name] : e.target.value });
+    change = e => this.setState({ [e.target.name]: e.target.value, message: '' });
 
-    save = e => {
-        e.preventDefault();
-        const {Username,Password,Email1,Email2,HoTen,DienThoai,DiaChi} = this.state;
-        axios({
-            method: 'post',
-            url: `http://localhost:3001/v1/account/edit/${this.state.ID}`,
-            data: {
-              Username,
-              Password,
-              Email1,
-              HoTen,
-              DienThoai,
-              Email2,
-              DiaChi,
-            },
-            })
-            .then((respone) => {
-                let status  = respone.data.status;
-                if(status){
-                    // window.location.href = '/private/userInfo';
-                }else {
-                    this.setState({ message: respone.data.message })
-                }
-            })
-            .catch(error => {
-                console.log('co loi');
-            });
+    submit = () => {
+        const { HoTen, Email1, Email2, DienThoai, DiaChi, isChangePassword, NewPassword, Repassword, Password } = this.state;
+        const userID = this.props.userData.ID;
+        if (!isChangePassword) this.props.modifyUserRequest({
+            HoTen,
+            Email1,
+            Email2,
+            DienThoai,
+            DiaChi,
+            confirmPassword: md5(Password),
+        }, userID);
+        else {
+            if (NewPassword === '') this.setState({ message: 'Bạn chưa nhập mật khẩu mới!' });
+            else if (NewPassword !== Repassword) this.setState({ message: 'Mật khẩu nhập lại không khớp!' });
+            else this.props.modifyUserRequest({
+                HoTen,
+                Email1,
+                Email2,
+                DienThoai,
+                DiaChi,
+                confirmPassword: md5(Password),
+                Password: md5(Repassword),
+            }, userID);
+        }
+        this.setState({ Password:'', NewPassword: '', Repassword: '' });
     }
-    render(){
-        return(
+
+    render() {
+        const { Username, HoTen, Email1, Email2, DienThoai, DiaChi, isChangePassword, NewPassword, Repassword, Password } = this.state;
+        const { isLoading } = this.props;
+        return (
             <div>
-                <Header/>
                 <div className="register-block clearfix">
-                    <div  id="RegisterApp" className="register col-md-8 col-sm-10">
-                        <form role="form">
-                            <div className="title">Chào mừng bạn đến với Ursmiles</div>
+                    <div id="RegisterApp" className="register col-md-8 col-sm-10">
+                        <div role="form">
+                            <div className="title">Chỉnh sửa thông tin cá nhân</div>
                             <div className="sub-title"><span>Thông tin cá nhân</span></div>
                             <div className="register-info">
                                 <div className="row">
                                     <div className="form-group col-md-6">
                                         <label>Tên truy cập</label>
-                                        <input type="text" onChange={this.change} name="Username" className="form-control" />
+                                        <input type="text" value={Username} disabled name="Username" className="form-control"/>
                                     </div>
-                                    <div className="form-group col-md-6">
-                                        <label>Email1</label>
-                                        <input type="text" onChange={this.change} name="Email1" className="form-control" />
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="form-group col-md-6">
-                                        <label>Mật khẩu</label>
-                                        <input type="Password" onChange={this.change }name="Password" className="form-control" />
-                                    </div>
-                                    <div className="form-group col-md-6">
-                                        <label>Nhập lại mật khẩu</label>
-                                        <input type="Repassword" onChange={this.change}  name="ConfirmPassword" className="form-control" />
-                                    </div>
-                                </div>
-                                <div className="row">
                                     <div className="form-group col-md-6">
                                         <label>Họ Tên</label>
-                                        <input type="text" onChange={this.change} name="HoTen" className="form-control" />
-                                    
+                                        <input type="text" onChange={this.change} value={HoTen} name="HoTen" className="form-control" disabled={isLoading}/>
                                     </div>
-                        
+                                </div>
+                                <div className="row">
                                     <div className="form-group col-md-6">
                                         <label>Số di động</label>
-                                        <input type="text" name="DienThoai" onChange={this.change} className="form-control" />     
+                                        <input type="text" onChange={this.change} value={DienThoai} name="DienThoai" className="form-control" disabled={isLoading}/>
+                                    </div>
+                                    <div className="form-group col-md-6">
+                                        <label>Địa chỉ</label>
+                                        <input type="text" onChange={this.change} value={DiaChi} name="DiaChi" className="form-control" disabled={isLoading}/>
                                     </div>
                                 </div>
                             </div>
-                    
+
                             <div className="row">
                                 <div className="form-group col-md-6">
-                                    <label>Địa chỉ</label>
-                                    <input type="text" name="DiaChi"onChange={this.change} className="form-control" />    
+                                    <label>Email1</label>
+                                    <input type="text" onChange={this.change} value={Email1} name="Email1" className="form-control" disabled={isLoading}/>
                                 </div>
                                 <div className="form-group col-md-6">
                                     <label>Email2</label>
-                                    <input type="text" onChange={this.change} name="Email2" className="form-control" />
+                                    <input type="text" onChange={this.change} value={Email2} name="Email2" className="form-control" disabled={isLoading}/>
                                 </div>
                             </div>
-                        
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="isChangePassword"
+                                    value="isChangePassword"
+                                    checked={isChangePassword}
+                                    onChange={() => this.setState({ isChangePassword: !this.state.isChangePassword })}
+                                    disabled={isLoading}
+                                /> Đổi mật khẩu </label>
+                            <br/>
+                            <br/>
+                            {isChangePassword && <div className="row">
+                                <div className="form-group col-md-6">
+                                    <label>Mật khẩu mới</label>
+                                    <input type="Password" onChange={this.change} value={NewPassword} name="NewPassword" className="form-control" disabled={isLoading}/>
+                                </div>
+                                <div className="form-group col-md-6">
+                                    <label>Nhập lại mật khẩu</label>
+                                    <input type="Password" onChange={this.change} value={Repassword} name="Repassword" className="form-control" disabled={isLoading}/>
+                                </div>
+                            </div>}
+                            <div/>
                             <div className="register_button">
-                                <button onClick={this.save} className="btn btn-primary">Create Account</button>
+                                Bạn phải nhập Mật khẩu cũ để tiếp tục: <input type="Password" onChange={this.change} value={Password} name="Password" disabled={isLoading} /><br/>
+                                <span className="message">{this.state.message}</span>
+                                <span className="message">{this.props.reqMessage}</span>
+                                <button onClick={this.submit} className="btn btn-primary" disabled={isLoading}>Chỉnh sửa</button>
                             </div>
-                            <span>{this.state.message}</span>
-                        </form>
+                        </div>
                     </div>
                 </div>
-                <Footer/>
-        
             </div>
         )
     }
 }
 
-export default ModifyUser;
+const mapStateToProps = state => ({
+    userData: state.appReducer.userData,
+    isLoading: state.modifyUserReducer.isLoading,
+    reqMessage: state.modifyUserReducer.reqMessage,
+});
+
+const mapsDispatchToProps = ({
+    modifyUserRequest,
+});
+
+export default connect(mapStateToProps, mapsDispatchToProps)(ModifyUser);
