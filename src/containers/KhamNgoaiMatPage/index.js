@@ -4,7 +4,7 @@ import './home.css';
 
 class KhamNgoaiMatPage extends Component {
     state = {
-       ID_BenhNha:'',
+       MaSo:'',
        DangMat:'',
        CungCuoi:'',
        MatNghieng:'',
@@ -15,15 +15,17 @@ class KhamNgoaiMatPage extends Component {
        RanhCam:'',
        GocMuiMoi:'',
        DoNuouKhiCuoi:'',
-       DoLoRangCucLucNghi:'' 
+       DoLoRangCucLucNghi:'',
+
     }
 
     change = e => this.setState({ [e.target.name]: e.target.value });
 
     callApi(state) {
+        console.log(state);
         axios({
             method: 'post',
-            url: `http://localhost:3001/v1/khamngoaimat/edit/${this.state.ID_BenhNha}`,
+            url: `http://localhost:3001/v1/khamngoaimat/create`,
             data: {
               ...state
             },
@@ -67,9 +69,9 @@ class KhamNgoaiMatPage extends Component {
                             </div>
                             <div className="col-sm-4">
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Hang</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">DangMat</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="Hang" onChange={this.change} className="form-control" />
+                                        <input type="text" name="DangMat" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -85,49 +87,49 @@ class KhamNgoaiMatPage extends Component {
                             </div>
                             <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Chi</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">CungCuoi</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="Chi" onChange={this.change} className="form-control" />
+                                        <input type="text" name="CungCuoi" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-4">
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">RangCoi_Trai</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">MatNghieng</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="RangCoi_Trai" onChange={this.change} className="form-control" />
+                                        <input type="text" name="MatNghieng" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">RangCoi_Phai</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">DuongCuoi</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="RangCoi_Phai" onChange={this.change} className="form-control" />
+                                        <input type="text" name="DuongCuoi" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-4">
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">RangNanh_Trai</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">DuongGiuaHamTren</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="RangNanh_Trai" onChange={this.change} className="form-control" />
+                                        <input type="text" name="DuongGiuaHamTren" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">RangNanh_Phai</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">HanhlangDen</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="RangNanh_Phai" onChange={this.change} className="form-control" />
+                                        <input type="text" name="HanhlangDen" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-4">
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">KhoangHamTren</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">Moi</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="KhoangHamTren" onChange={this.change} className="form-control" />
+                                        <input type="text" name="Moi" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -135,47 +137,39 @@ class KhamNgoaiMatPage extends Component {
                            
                             <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">KhoangHamDuoi</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">RanhCam</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="KhoangHamDuoi" onChange={this.change} className="form-control" />
+                                        <input type="text" name="RanhCam" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
                             
                             <div className="col-sm-4">
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">LechChucNang</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">GocMuiMoi</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="LechChucNang" onChange={this.change} className="form-control" />
+                                        <input type="text" name="GocMuiMoi" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">HamTren_Trai</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">DoNuouKhiCuoi</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="HamTren_Trai" className="form-control" />
+                                        <input type="text" name="DoNuouKhiCuoi" className="form-control" />
                                         
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-4">
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">HamTren_Phai</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">DoLoRangCucLucNghi</label>
                                     <div className="col-xs-8 col-sm-7">
                                         <input type="text" name="HamTren_Phai" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-sm-4" style={{ clear: 'left' }}>
-                                <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">HamDuoi_Trai</label>
-                                    <div className="col-xs-8 col-sm-7">
-                                        <input type="text"name="HamDuoi_Trai" onChange={this.change} className="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="clearfix"></div>
+                           
                         </div>
                     </form>
                 </div>

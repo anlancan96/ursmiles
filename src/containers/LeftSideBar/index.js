@@ -26,7 +26,7 @@ class LeftSidebar extends Component {
                     <div className="panel panel-default">
                         <div className="panel-heading">Quản lý hồ sơ</div>
                         <div className="list-group">
-                                <a href="#" data-menu="hosobenhnhan" className="list-group-item"><i className="fa fa-file-text"></i>Hồ sơ bệnh nhân</a>
+                                <Link to="/private/khamngoaimat" data-menu="hosobenhnhan" className="list-group-item"><i className="fa fa-file-text"></i>Hồ sơ bệnh nhân</Link>
                                 <a href="#" data-menu="FinancialReport" className="list-group-item"><i className="fa fa-bar-chart"></i>Thống kê tài chính</a>
                                 <a href="#" data-menu="PriceList" className="list-group-item"><i className="fa fa-dollar"></i>Bảng giá</a>
                                 <a href="#" data-menu="UserTaskLogs" className="list-group-item"><i className="fa fa-history"></i>Lịch sử thao tác</a>
