@@ -40,7 +40,7 @@ class Register extends Component {
             .then((respone) => {
                 let status  = respone.data.status;
                 if(status){
-                    window.location.href = '/private/userInfo';
+                    // window.location.href = '/private/userInfo';
                 }else {
                     this.setState({ message: respone.data.message })
                 }

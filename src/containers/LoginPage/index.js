@@ -15,8 +15,17 @@ class LoginPage extends React.Component {
         message  : '',
     }
 
+    componentDidMount() {
+        const Username = localStorage.lastuserloginname;
+        if(localStorage.lastuserloginname) {
+            this.setState({ Username });
+        }
+    }
+
     componentWillUpdate(nextProps) {
-        nextProps.isLogin && this.props.history.push('/private');
+        this.props.isLogin !== nextProps.isLogin
+        && nextProps.isLogin
+        && this.props.history.push('/private');
     }
 
     change = (e) => { this.setState({ [e.target.name] : e.target.value })}
@@ -35,6 +44,7 @@ class LoginPage extends React.Component {
 
     render(){
         const { isLogin, isLoading, errorMessage } = this.props;
+        const { Username, Password, message } = this.state;
         return (
             <div>
             <Header/>
@@ -58,14 +68,14 @@ class LoginPage extends React.Component {
                             <div>
                                 <div className="form-group">
                                     <i className="fa fa-user"></i>
-                                    <input type="text" name="Username"  className="form-control" placeholder="Tên đăng nhập" onChange={this.change}/>
+                                    <input type="text" name="Username" value={Username} className="form-control" placeholder="Tên đăng nhập" onChange={this.change}/>
                                 </div>
                                 <div className="form-group">
                                     <i className="fa fa-key"></i>
-                                    <input type="password" name="Password"  className="form-control" placeholder="Mật khẩu" onChange={this.change}/>
+                                    <input type="password" name="Password" value={Password} className="form-control" placeholder="Mật khẩu" onChange={this.change}/>
                                 </div>
-                                <div className="message">{this.state.message}</div>
-                                <div className="message">{this.props.errorMessage}</div>
+                                <div className="message">{message}</div>
+                                <div className="message">{errorMessage}</div>
                                 <div className="login_button">
                                     <button onClick={this.login} className="btn btn-default" disabled={isLoading}>Đăng nhập</button>
                                     <Link to="/register" className="btn btn-default btn-register">Đăng ký</Link>
@@ -73,9 +83,22 @@ class LoginPage extends React.Component {
                             </div>
                         </div>
                     </div>}
-                    {isLogin &&
-                        <button className="btn btn-default" onClick={() => this.props.history.push('/private') } >Tiếp tục</button>
-                    }
+                    {isLogin  && <div id="LoginApp" className="login">
+                        <div>
+                            <h2 className="title"><i className="fa fa-lock"></i></h2>
+                            <div style={{ textAlign: 'center', fontSize: 18, color: 'rgba(0, 0, 0, 0.8)' }}>
+                                <div>
+                                    Xin chào, {this.props.userData && <span style={{ color: '#f48c42' }}>{this.props.userData.HoTen}</span>}
+                                </div>
+                                <div style={{ fontSize: 16 }} >
+                                    Bạn đã đăng nhập
+                                </div>
+                                <div className="login_button">
+                                    <button onClick={() => this.props.history.push('/private')} className="btn btn-default" disabled={isLoading}>Tiếp tục</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>}
                 </div>
             </div>
 
@@ -138,6 +161,7 @@ const mapStateToProps = state => ({
     isLogin: state.appReducer.isLogin,
     isLoading: state.loginReducer.isLoading,
     errorMessage: state.loginReducer.errorMessage,
+    userData: state.appReducer.userData,
 });
 
 const mapsDispatchToProps = ({

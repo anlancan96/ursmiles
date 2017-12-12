@@ -12,7 +12,7 @@ import styles from './styles';
 
 class App extends React.Component {
     componentDidMount() {
-        console.log('-AnhNT-', this.props);
+        
     }
 
     render() {
