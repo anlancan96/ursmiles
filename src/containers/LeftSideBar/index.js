@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 import { logout } from '../App/actions';
 
 class LeftSidebar extends Component {
@@ -17,7 +17,7 @@ class LeftSidebar extends Component {
                             <span className="caret"></span>
                         </div>
                         <ul className="dropdown-menu" role="menu">
-                            <li role="presentation"><a href="#" role="menuitem" tabIndex="-1">Chỉnh sửa thông tin</a></li>
+                            <li role="presentation"><Link to="/private/modify" role="menuitem" tabIndex="-1">Chỉnh sửa thông tin</Link></li>
                             <li role="presentation" className="divider"></li>
                             <li role="presentation"><a role="menuitem" tabIndex="-1" onClick={this.props.logout} className="text-danger">Thoát</a></li>
                         </ul>

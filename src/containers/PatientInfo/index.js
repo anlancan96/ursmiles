@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import Sidebar from '../../components/Sidebar';
-import HeaderInfo from '../../components/HeaderInfo';
-import '../css/patientInfo.css';
 import axios from 'axios';
+import './patientInfo.css';
 
 class PatientInfo extends Component {
     state = {
@@ -72,8 +70,6 @@ class PatientInfo extends Component {
     render() {
         return (
             <div>
-                <HeaderInfo />
-                <Sidebar />
                 <div id="RecordHanhChinhApp" className="maincontent">
                     <div className="pull-right form-inline" style={{ margin: '14px 20px 0 0' }}>
                         <span className="form-inline">

@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class HeaderInfo extends Component {
     render(){
@@ -10,7 +11,7 @@ class HeaderInfo extends Component {
                             <div className="navbar-header">
                                 <a className="navbar-brand" href="#">BS chỉnh nha</a>
                             </div>
-                            <a href="#" className="btn btn-default navbar-btn"><i className="fa fa-plus"></i>Thêm hồ sơ</a>
+                            <Link to="/private/patientInfo" className="btn btn-default navbar-btn"><i className="fa fa-plus"></i>Thêm hồ sơ</Link>
                             <div className="navbar-form navbar-right" role="search">
                                 <div className="form-group has-feedback searchbox">
                                     <input type="text" id="tbxMainKeyword" className="form-control"/>
