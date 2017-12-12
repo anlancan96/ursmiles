@@ -23,7 +23,7 @@ export default class Main extends React.Component {
                 <LeftSideBar/>
                 <div>
                     <HeaderInfo/>
-                    <div style={{ overflowY: 'auto', height: 'calc(100vh - 100px)' }}>
+                    <div style={{ overflowY: 'auto', height: 'calc(100vh - 0px)' }}>
                         <Switch>
                             <Route exact path="/private" component={UserInfo} />
                             <Route path="/private/other" component={OtherPage} />

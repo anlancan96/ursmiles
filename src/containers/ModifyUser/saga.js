@@ -1,14 +1,10 @@
 // import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { put, takeLatest } from 'redux-saga/effects';
-import md5 from 'md5';
 
-function* fetchLogin(action) {
+function* fetchModify(action) {
     try {
-        const url = 'http://localhost:3001/v1/account/login';
-        const req_body = {
-            Username: action.Username,
-            Password: md5(action.Password),
-        };
+        const url = `http://localhost:3001/v1/account/edit/${action.ID}`;
+        const req_body = action.data;
 
         let res_data;
 
@@ -26,17 +22,20 @@ function* fetchLogin(action) {
         .then(responseJson => {
             res_data = responseJson;
         }).catch(e => console.log('-AnhNT-', e));
+
         if (res_data.status === 1) {
+            yield put({ type: "MODIFY_USER_SUCCESS", message: res_data.message });
             yield put({ type: "LOGIN_SUCCESS", token: res_data.token });
         } else if (res_data.status === 0)
-            yield put({ type: "LOGIN_FAILURE", message: res_data.message });
+            yield put({ type: "MODIFY_USER_FAILURE", message: res_data.message });
+
     } catch (e) {
-        yield put({ type: "LOGIN_FAILURE", message: 'Lỗi không xác định' });
+        yield put({ type: "MODIFY_USER_FAILURE", message: 'Lỗi không xác định!' });
     }
 }
 
-function* loginSaga() {
-    yield takeLatest("LOGIN_REQUEST", fetchLogin);
+function* modifyUser() {
+    yield takeLatest("MODIFY_USER_REQUEST", fetchModify);
 }
 
-export default loginSaga;
+export default modifyUser;
