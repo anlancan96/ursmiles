@@ -25,7 +25,7 @@ class LoginPage extends React.Component {
     componentWillUpdate(nextProps) {
         this.props.isLogin !== nextProps.isLogin
         && nextProps.isLogin
-        && this.props.history.push('/private');
+        && this.props.history.push('/ursmiles');
     }
 
     change = (e) => { this.setState({ [e.target.name] : e.target.value })}
@@ -98,7 +98,7 @@ class LoginPage extends React.Component {
                                     Bạn đã đăng nhập
                                 </div>
                                 <div className="login_button">
-                                    <button onClick={() => this.props.history.push('/private')} className="btn btn-default" disabled={isLoading}>Tiếp tục</button>
+                                    <button onClick={() => this.props.history.push('/ursmiles')} className="btn btn-default" disabled={isLoading}>Tiếp tục</button>
                                 </div>
                             </div>
                         </div>

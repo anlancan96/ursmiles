@@ -22,7 +22,7 @@ class App extends React.Component {
                 <Switch>
                     <Route exact path="/" component={LoginPage} />
                     <Route path="/register" component={RegisterPage} />
-                    <Route path="/private" render={()=><Main isLogin={isLogin} {...this.props}/>} />
+                    <Route path="/ursmiles" render={()=><Main isLogin={isLogin} {...this.props}/>} />
                     <Route path="" component={NotFoundPage} />
                 </Switch>
             </div>

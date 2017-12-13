@@ -17,7 +17,7 @@ class LeftSidebar extends Component {
                             <span className="caret"></span>
                         </div>
                         <ul className="dropdown-menu" role="menu">
-                            <li role="presentation"><Link to="/private/modify" role="menuitem" tabIndex="-1">Chỉnh sửa thông tin</Link></li>
+                            <li role="presentation"><Link to="/ursmiles/modify" role="menuitem" tabIndex="-1">Chỉnh sửa thông tin</Link></li>
                             <li role="presentation" className="divider"></li>
                             <li role="presentation"><a role="menuitem" tabIndex="-1" onClick={this.props.logout} className="text-danger">Thoát</a></li>
                         </ul>
@@ -26,7 +26,7 @@ class LeftSidebar extends Component {
                     <div className="panel panel-default">
                         <div className="panel-heading">Quản lý hồ sơ</div>
                         <div className="list-group">
-                                <Link to="/private/khamngoaimat" data-menu="hosobenhnhan" className="list-group-item"><i className="fa fa-file-text"></i>Hồ sơ bệnh nhân</Link>
+                                <Link to="/ursmiles/khamngoaimat" data-menu="hosobenhnhan" className="list-group-item"><i className="fa fa-file-text"></i>Hồ sơ bệnh nhân</Link>
                                 <a href="#" data-menu="FinancialReport" className="list-group-item"><i className="fa fa-bar-chart"></i>Thống kê tài chính</a>
                                 <a href="#" data-menu="PriceList" className="list-group-item"><i className="fa fa-dollar"></i>Bảng giá</a>
                                 <a href="#" data-menu="UserTaskLogs" className="list-group-item"><i className="fa fa-history"></i>Lịch sử thao tác</a>
