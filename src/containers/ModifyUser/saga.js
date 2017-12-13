@@ -1,9 +1,10 @@
 // import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { put, takeLatest } from 'redux-saga/effects';
+import { apiurl } from '../../assets/consts';
 
 function* fetchModify(action) {
     try {
-        const url = `http://localhost:3001/v1/account/edit/${action.ID}`;
+        const url = `${apiurl}/v1/account/edit/${action.ID}`;
         const req_body = action.data;
 
         let res_data;

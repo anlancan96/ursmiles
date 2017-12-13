@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './home.css';
 import { Link } from 'react-router-dom';
+
+import { apiurl } from '../../assets/consts';
+import './home.css';
 
 class KhamTrongMieng extends Component {
     state = {
@@ -33,7 +35,7 @@ class KhamTrongMieng extends Component {
         console.log(state);
         axios({
             method: 'post',
-            url: `http://localhost:3001/v1/khamtrongmieng/create`,
+            url: `${apiurl}/v1/khamtrongmieng/create`,
             data: {
               ...state
             },

@@ -1,8 +1,11 @@
 import React,{Component} from 'react';
 import  './register.css';
+import axios from 'axios';
+
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import axios from 'axios';
+
+import { apiurl } from '../../assets/consts';
 
 class Register extends Component {
     
@@ -26,7 +29,7 @@ class Register extends Component {
         const {Username,Password,Email1,Email2,HoTen,DienThoai,DiaChi} = this.state;
         axios({
             method: 'post',
-            url: 'http://localhost:3001/v1/account/register',
+            url: `${apiurl}/v1/account/register`,
             data: {
               Username,
               Password,

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { apiurl } from '../../assets/consts';
+
 import './patientInfo.css';
 
 class PatientInfo extends Component {
@@ -49,7 +51,7 @@ class PatientInfo extends Component {
     callApi(state) {
         axios({
             method: 'post',
-            url: `http://localhost:3001/v1/benhnhan/edit/${this.state.MaSo}`,
+            url: `${apiurl}/v1/benhnhan/edit/${this.state.MaSo}`,
             data: {
               ...state
             },

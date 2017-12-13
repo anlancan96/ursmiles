@@ -1,10 +1,11 @@
 // import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { put, takeLatest } from 'redux-saga/effects';
+import { apiurl } from '../../assets/consts';
 import md5 from 'md5';
 
 function* fetchLogin(action) {
     try {
-        const url = 'http://localhost:3001/v1/account/login';
+        const url = `${apiurl}/v1/account/login`;
         const req_body = {
             Username: action.Username,
             Password: md5(action.Password),

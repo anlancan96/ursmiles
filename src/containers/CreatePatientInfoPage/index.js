@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
+import { apiurl } from '../../assets/consts';
 import { getCurrentDate } from '../../assets/globalFunc';
 import './patientInfo.css';
 
@@ -39,7 +40,7 @@ class PatientInfo extends Component {
         this.setState({ isLoading: true }, () => {
             axios({
                 method: 'post',
-                url: `http://localhost:3001/v1/benhnhan/create`,
+                url: `${apiurl}/v1/benhnhan/create`,
                 data: {
                   ...state,
                   IDBacSi: that.props.userData.ID,

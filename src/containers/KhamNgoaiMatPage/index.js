@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+
+import { apiurl } from '../../assets/consts';
 import './home.css';
 
 class KhamNgoaiMatPage extends Component {
@@ -25,7 +27,7 @@ class KhamNgoaiMatPage extends Component {
         console.log(state);
         axios({
             method: 'post',
-            url: `http://localhost:3001/v1/khamngoaimat/create`,
+            url: `${apiurl}/v1/khamngoaimat/create`,
             data: {
               ...state
             },

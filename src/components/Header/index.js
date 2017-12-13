@@ -1,4 +1,5 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
     render(){
@@ -28,8 +29,8 @@ class Header extends Component {
                         {/* logo */}
                     </a>
                     <div id="MainMenu" className="mainmenu">
-                        <a href="/" data-menu="Home" className="active"><span className="glyphicon glyphicon-home"></span>Trang chủ</a>
-                        <a href="/News" data-menu="News"><span className="glyphicon glyphicon-list-alt"></span>Tin tức</a>
+                        <Link to="/" data-menu="Home" className="active"><span className="glyphicon glyphicon-home"></span>Trang chủ</Link>
+                        <Link to="/News" data-menu="News"><span className="glyphicon glyphicon-list-alt"></span>Tin tức</Link>
                         
                         <a href="" data-menu="Dentist"><span className="glyphicon glyphicon-user"></span> Chuyên gia</a>
                         <div className="language">
