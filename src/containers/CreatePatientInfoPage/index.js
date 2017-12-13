@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+
+import { getCurrentDate } from '../../assets/globalFunc';
 import './patientInfo.css';
 
 class PatientInfo extends Component {
     state = {
-        NgayBatDau: null,
+        NgayBatDau: getCurrentDate(),
         NgaySinh:null,
         TrangThai: '',
         BacSi: '',
         Ho: '',
         Ten: '',
-        MaSo:'',
+        MaHoSo:'',
         GioiTinh:'',
         DanToc:'',
         DiaChi:'',
@@ -18,48 +20,35 @@ class PatientInfo extends Component {
         Email:'',
         Facebook:'',
         Twitter:'',
-        DaPhauThuat:0,
-        UongThuocNguaThai:0,
-        HenSuyen:0,
-        MauKhoDong:0,
-        HoaTriLieu:0,
-        XaTri:0,
-        BenhLyHoHap:0,
-        BenhLyTieuHoa:0,
-        Lao:0,
-        ChoConBu:0,
-        CoThai:0,
-        TieuDuong:0,
-        DongKinh:0,
-        HuyetHuu:0,
-        CaoHuyetAp:0,
-        BenhLyTuanHoan:0,
-        HIV:0,
-        DiUng:0,
-        HoiMieng:0,
-        ChayMauNuou:0,
-        BenhLyNhaChu:0,
-        NghienRang:0,
-        LyDoDenKham:'',
-        ThuocDangSuDung:''
+
+        isLoading: false,
     }
 
     change = e => this.setState({ [e.target.name]: e.target.value });
 
     callApi(state) {
-        axios({
-            method: 'post',
-            url: `http://localhost:3001/v1/benhnhan/edit/${this.state.MaSo}`,
-            data: {
-              ...state
-            },
-            })
-            .then((respone) => {
-               console.log(respone);
-            })
-            .catch(error => {
+        const that = this;
+        this.setState({ isLoading: true }, () => {
+            axios({
+                method: 'post',
+                url: `http://localhost:3001/v1/benhnhan/create`,
+                data: {
+                  ...state
+                },
+            }).then((respone) => {
+                const resdata = respone.data;
+                if (resdata.status === 1) {
+                    alert(resdata.message);
+                    that.setState({ isLoading: false });
+                    that.props.history.push('/ursmiles');
+                } else if (resdata.status === 0) {
+                    alert(resdata.message);
+                    that.setState({ isLoading: false });
+                }
+            }) .catch(error => {
                 console.log('co loi');
             });
+        });
     }
 
     save = e => {
@@ -72,19 +61,14 @@ class PatientInfo extends Component {
             <div>
                 <div id="RecordHanhChinhApp" className="maincontent">
                     <div className="pull-right form-inline" style={{ margin: '14px 20px 0 0' }}>
-                        <span className="form-inline">
-                            <button type="button" disabled className="btn btn-default" style={{ fontWeight: 'bold', cursor: 'default' }}></button>
-                            <button type="button" className="btn btn-primary-clear"><i className="fa fa-edit" />Chỉnh sửa</button>
-                        </span>
                         <span>
                             <select onChange={this.change} className="form-control">
                                 <option value="TrangThai">Trạng thái</option>
                                 <option value="Kham">Khám</option>
-                                <option value="ChinhNha">Chỉnh nha
-
-                                </option>
+                                <option value="ChinhNha">Chỉnh nha</option>
                             </select>
-                            <button onClick={this.save} className="btn btn-primary"><i className="fa fa-floppy-o"></i>Lưu</button>
+                            {' '}
+                            <button onClick={this.save} className="btn btn-primary" disabled={this.state.isLoading}><i className="fa fa-floppy-o"></i>Tạo</button>
                         </span>
                     </div>
                     <h1 className="maintitle">Thông tin hành chính</h1>
@@ -94,7 +78,7 @@ class PatientInfo extends Component {
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Ngày bắt đầu</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="date" onChange={this.change} className="form-control" name="NgayBatDau" />
+                                        <input type="date" value={this.state.NgayBatDau} onChange={this.change} className="form-control" name="NgayBatDau" />
                                     </div>
                                 </div>
                             </div>
@@ -147,6 +131,7 @@ class PatientInfo extends Component {
                                         <select name="GioiTinh" onChange={this.change} className="form-control">
                                             <option value="Male">Nam</option>
                                             <option value="Female">Nữ</option>
+                                            <option value="Female">Khác</option>
                                         </select>
                                     </div>
                                 </div>
@@ -180,9 +165,9 @@ class PatientInfo extends Component {
                             
                             <div className="col-sm-4">
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Mã số</label>
+                                    <label className="col-xs-4 col-sm-5 control-label">Mã hồ sơ</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="MaSo" onChange={this.change} className="form-control" />
+                                        <input type="text" name="MaHoSo" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -213,160 +198,6 @@ class PatientInfo extends Component {
                             </div>
                             <div className="clearfix"></div>
                         </div>
-                        <div className="col-md-6">
-                            <div className="panel panel-default">
-                                <div className="panel-heading">
-                                    <h3 className="panel-title">Tiểu sử y khoa</h3>
-                                </div>
-                                <div id="TieuSuYKhoa" className="panel-body checkbox-list row-xs">
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="DaPhauThuat" value="1"/>Đã phẫu thuật
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="ChoConBu" value="1" />Cho con bú
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="UongThuocNguaThai" value="1"/>Uống thuốc ngừa thai
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="CoThai" value="1" />Có thai
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="HenSuyen" value="1"/>Hen suyễn
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="TieuDuong"value="1" />Tiểu đường
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="MauKhoDong" value="1"/>Máu khó đông
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="DongKinh" value="1"/>Động kinh
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="HoaTriLieu" value="1"/>Hóa Trị Liệu
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="HuyetHuu" value="1"/>Huyết hữu
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="XaTri" value="1"/>Xạ trị
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="CaoHuyetAp" value="1"/>Cao huyết áp
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="BenhLyHoHap" value="1" />Bệnh lý hô hấp
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="BenhLyTuanHoan" value="1" />Bệnh lý tuần hoàn
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="BenhLyTieuHoa"value="1" />Bệnh lý tiêu hóa
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="HIV/AIDS" value="1"/>HIV/AIDS
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="Lao" value="1"/>Lao
-                                        </label>
-                                    </div>
-                                    <div className="col-sm-6 col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="DiUng" value="1"/>Dị ứng
-                                        </label>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="panel panel-default">
-                                <div className="panel-heading">
-                                    <h3 className="panel-title">Tiểu sử nha khoa</h3>
-                                </div>
-                                <div id="TieuSuNhaKhoa" className="panel-body">
-                                    <div className="col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="HoiMieng" value="1"/>Hôi miệng
-                                        </label>
-                                    </div>
-                                    <div className="col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="BenhLyNhaChu" value="1"/>Bệnh lý nha chu
-                                        </label>
-                                    </div>
-
-                                    <div className="col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="ChayMauNuou"value="1" />Chảy máu nướu
-                                        </label>
-                                    </div>
-                                    <div className="col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="NghienRang" value="1"/>Nghiến răng
-                                        </label>
-                                    </div>
-                                    <div className="col-md-6 col-lg-6 checkbox">
-                                        <label>
-                                            <input type="checkbox" name="RangNhayCam" value="1"/>Răng nhạy cảm
-                                        </label>
-                                    </div>
-
-                                    <div className="col-sm-12">
-                                        <div className="form-group">
-                                            <label className="col-xs-4 col-sm-4 control-label">Lý do đến khám</label>
-                                            <div className="col-xs-8 col-sm-8">
-                                                <input type="text" name="LyDoDenKham" onChange={this.change} className="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="panel panel-default">
-                                <div className="panel-heading">
-                                    <h3 className="panel-title">Các thuốc đang sử dụng</h3>
-                                </div>
-                                <div className="panel-body">
-                                    <textarea className="form-control"name="ThuocDangSuDung" onChange={this.change} style={{ height: '53px' }}></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="clearfix"></div>
-                        <div className="overlay"></div>
                     </form>
                 </div>
 

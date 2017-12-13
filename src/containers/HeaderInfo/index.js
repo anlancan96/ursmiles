@@ -11,7 +11,7 @@ class HeaderInfo extends Component {
                             <div className="navbar-header">
                                 <a className="navbar-brand" href="#">Quản lý bệnh án</a>
                             </div>
-                            <Link to="/ursmiles/patientInfo" className="btn btn-default navbar-btn"><i className="fa fa-plus"></i>Thêm hồ sơ</Link>
+                            <Link to="/ursmiles/create" className="btn btn-default navbar-btn"><i className="fa fa-plus"></i>Thêm hồ sơ</Link>
                             <div className="navbar-form navbar-right" role="search">
                                 <div className="form-group has-feedback searchbox">
                                     <input type="text" id="tbxMainKeyword" className="form-control"/>

@@ -9,7 +9,7 @@ class Userinfo extends Component{
                 <div id="ManageRecordApp" className="maincontent">
                     <ul className="nav nav-tabs dropdown" role="tablist">
                         <li data-toggle="dropdown"><a><i className="fa fa-file-text"></i>Hồ sơ</a></li>
-                        <ul class="dropdown-menu">
+                        <ul className="dropdown-menu">
                             <li><Link to="/ursmiles/khamtrongmieng">Khám trong miệng</Link></li>
                             <li><Link to="/ursmiles/khamngoaimat">Khám ngoài mặt</Link></li>
                         </ul>
