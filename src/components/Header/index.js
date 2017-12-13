@@ -25,7 +25,7 @@ class Header extends Component {
                 </div>
                 <div className="container">
                     <a href="/" className="logo">
-                        
+                        {/* logo */}
                     </a>
                     <div id="MainMenu" className="mainmenu">
                         <a href="/" data-menu="Home" className="active"><span className="glyphicon glyphicon-home"></span>Trang chủ</a>

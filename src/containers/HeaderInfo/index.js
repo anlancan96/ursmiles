@@ -1,17 +1,19 @@
-import React,{Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class HeaderInfo extends Component {
-    render(){
+    render() {
+        const { userData } = this.props;
         return(
             <div>
                 <div id="TopBarApp" className="topbar">
                     <nav className="navbar navbar-default" role="navigation">
                         <div className="container-fluid">
                             <div className="navbar-header">
-                                <a className="navbar-brand" href="#">Quản lý bệnh án</a>
+                                <Link className="navbar-brand" to="/ursmiles">Quản lý bệnh án</Link>
                             </div>
-                            <Link to="/ursmiles/create" className="btn btn-default navbar-btn"><i className="fa fa-plus"></i>Thêm hồ sơ</Link>
+                            {userData.role && (userData.role === "admin" || userData.role === "doctor") && <Link to="/ursmiles/create" className="btn btn-default navbar-btn"><i className="fa fa-plus"></i>Thêm hồ sơ</Link>}
                             <div className="navbar-form navbar-right" role="search">
                                 <div className="form-group has-feedback searchbox">
                                     <input type="text" id="tbxMainKeyword" className="form-control"/>
@@ -46,4 +48,11 @@ class HeaderInfo extends Component {
     }
 }
 
-export default HeaderInfo;
+const mapStateToProps = state => ({
+    userData: state.appReducer.userData,
+});
+
+const mapsDispatchToProps = ({
+});
+
+export default connect(mapStateToProps, mapsDispatchToProps)(HeaderInfo);

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import { getCurrentDate } from '../../assets/globalFunc';
 import './patientInfo.css';
 
 class PatientInfo extends Component {
+
     state = {
         NgayBatDau: getCurrentDate(),
         NgaySinh:null,
@@ -17,11 +19,17 @@ class PatientInfo extends Component {
         DanToc:'',
         DiaChi:'',
         DienThoai:'',
-        Email:'',
+        Email1:'',
+        Email2:'',
         Facebook:'',
         Twitter:'',
 
         isLoading: false,
+    }
+
+    componentWillMount() {
+        if (!(this.props.userData.role === "admin" || this.props.userData.role === "doctor"))
+            this.props.history.push('/ursmiles');
     }
 
     change = e => this.setState({ [e.target.name]: e.target.value });
@@ -33,7 +41,8 @@ class PatientInfo extends Component {
                 method: 'post',
                 url: `http://localhost:3001/v1/benhnhan/create`,
                 data: {
-                  ...state
+                  ...state,
+                  IDBacSi: that.props.userData.ID,
                 },
             }).then((respone) => {
                 const resdata = respone.data;
@@ -153,7 +162,15 @@ class PatientInfo extends Component {
                                 </div>
                             </div>
                            
-                           
+                            <div className="col-sm-4">
+                                <div className="form-group">
+                                    <label className="col-xs-4 col-sm-5 control-label">Mã hồ sơ</label>
+                                    <div className="col-xs-8 col-sm-7">
+                                        <input type="text" name="MaHoSo" onChange={this.change} className="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Số di động</label>
@@ -165,29 +182,31 @@ class PatientInfo extends Component {
                             
                             <div className="col-sm-4">
                                 <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Mã hồ sơ</label>
-                                    <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="MaHoSo" onChange={this.change} className="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4" style={{ clear: 'left' }}>
-                                <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Email</label>
-                                    <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="Email" className="form-control" />
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Facebook</label>
                                     <div className="col-xs-8 col-sm-7">
                                         <input type="text" name="Facebook" onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div className="col-sm-4" style={{ clear: 'left' }}>
+                                <div className="form-group">
+                                    <label className="col-xs-4 col-sm-5 control-label">Email1</label>
+                                    <div className="col-xs-8 col-sm-7">
+                                        <input type="text" name="Email1" className="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-sm-4">
+                                <div className="form-group">
+                                    <label className="col-xs-4 col-sm-5 control-label">Email2</label>
+                                    <div className="col-xs-8 col-sm-7">
+                                        <input type="text" name="Email2" onChange={this.change} className="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="col-sm-4">
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Twitter</label>
@@ -200,10 +219,13 @@ class PatientInfo extends Component {
                         </div>
                     </form>
                 </div>
-
             </div>
         )
     }
 }
 
-export default PatientInfo;
+const mapStateToProps = state => ({
+    userData: state.appReducer.userData,
+});
+
+export default connect(mapStateToProps, {})(PatientInfo);

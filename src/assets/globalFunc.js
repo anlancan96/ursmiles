@@ -15,3 +15,11 @@ export const getCurrentDate = () => {
     today = yyyy + '-' + mm + '-' + dd;
     return today;
 }
+
+export const changeDateForm = (date) => {
+    if (typeof(date) !== "string") return "";
+    const day = date.slice(8, 10);
+    const month = date.slice(5, 7);
+    const year = date.slice(0, 4);
+    return day + ' / ' + month + ' / ' + year;
+}

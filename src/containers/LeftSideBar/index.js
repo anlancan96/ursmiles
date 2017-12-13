@@ -40,6 +40,9 @@ class LeftSidebar extends Component {
                         <a href="#" className="list-group-item"><i className="fa fa-newspaper-o"></i>Tin tức</a>
                     </div>
                 </div>
+                {userData.role === "admin" && <div className="list-group">
+                    <Link to="/ursmiles/adminpage" className="list-group-item">Trang quản trị</Link>
+                </div>}
             </div>
         )
     }

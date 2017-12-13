@@ -53,13 +53,13 @@ class PatientInfo extends Component {
             data: {
               ...state
             },
-            })
-            .then((respone) => {
-               console.log(respone);
-            })
-            .catch(error => {
-                console.log('co loi');
-            });
+        })
+        .then((respone) => {
+            console.log(respone);
+        })
+        .catch(error => {
+            console.log('co loi');
+        });
     }
 
     save = e => {

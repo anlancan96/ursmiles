@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class NotFoundPage extends React.Component {
     componentDidMount() {
-        this.props.history.push('/');
+        // this.props.history.push('/');
     }
     render() {
         return (
