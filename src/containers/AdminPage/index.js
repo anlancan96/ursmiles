@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import md5 from 'md5';
+import jwt from 'jsonwebtoken';
+import { secret } from '../../assets/consts';
 
 import AccountItem from './AcountItem';
 
@@ -50,14 +52,17 @@ class AdminPage extends Component {
         const { IDOnChange, changeRole, Password } = this.state;
         const Username = this.props.userData.Username;
         const that = this;
+        const token = jwt.sign({
+            Username,
+            Password: md5(Password),
+        }, secret);
         axios({
             method: 'post',
             url: `${apiurl}/v1/account/changerole`,
             data: {
               ID: IDOnChange,
               role: changeRole,
-              Username,
-              Password: md5(Password),
+              token,
             },
         })
         .then((respone) => {

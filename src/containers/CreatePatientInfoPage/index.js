@@ -10,20 +10,20 @@ class PatientInfo extends Component {
 
     state = {
         NgayBatDau: getCurrentDate(),
-        NgaySinh:null,
+        NgaySinh: null,
         TrangThai: '',
         BacSi: '',
         Ho: '',
         Ten: '',
         MaHoSo:'',
-        GioiTinh:'',
-        DanToc:'',
-        DiaChi:'',
-        DienThoai:'',
-        Email1:'',
-        Email2:'',
-        Facebook:'',
-        Twitter:'',
+        GioiTinh: 'Nam',
+        DanToc: '',
+        DiaChi: '',
+        DienThoai: '',
+        Email1: '',
+        Email2: '',
+        Facebook: '',
+        Twitter: '',
 
         isLoading: false,
     }
@@ -35,14 +35,15 @@ class PatientInfo extends Component {
 
     change = e => this.setState({ [e.target.name]: e.target.value });
 
-    callApi(state) {
+    callApi = () => {
         const that = this;
         this.setState({ isLoading: true }, () => {
+            console.log('-AnhNT-' + `${apiurl}/v1/thongtinbenhnhan/create`);
             axios({
                 method: 'post',
-                url: `${apiurl}/v1/benhnhan/create`,
+                url: `${apiurl}/v1/thongtinbenhnhan/create`,
                 data: {
-                  ...state,
+                  ...that.state,
                   IDBacSi: that.props.userData.ID,
                 },
             }).then((respone) => {
@@ -56,14 +57,15 @@ class PatientInfo extends Component {
                     that.setState({ isLoading: false });
                 }
             }) .catch(error => {
-                console.log('co loi');
+                alert('Lỗi không xác định');
+                this.setState({ isLoading: false });
             });
         });
     }
 
     save = e => {
         e.preventDefault();  
-        this.callApi(this.state);       
+        this.callApi();       
     }
 
     render() {
@@ -139,9 +141,9 @@ class PatientInfo extends Component {
                                     <label className="col-xs-4 col-sm-5 control-label">Giới tính</label>
                                     <div className="col-xs-8 col-sm-7">
                                         <select name="GioiTinh" onChange={this.change} className="form-control">
-                                            <option value="Male">Nam</option>
-                                            <option value="Female">Nữ</option>
-                                            <option value="Female">Khác</option>
+                                            <option value="Nam">Nam</option>
+                                            <option value="Nữ">Nữ</option>
+                                            <option value="Other">Khác</option>
                                         </select>
                                     </div>
                                 </div>
