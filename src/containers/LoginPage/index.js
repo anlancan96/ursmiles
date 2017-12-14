@@ -55,14 +55,14 @@ class LoginPage extends React.Component {
             <div className="banner">
                 <div className="page_width">
                     <div className="feature">
-                        <h1 className="title">Phần mềm chỉnh nha online tiện ích nhất hiện nay</h1>
+                        <h1 className="title">Phần mềm Quản lý bệnh án</h1>
                         <ul className="list">
-                            <li><span className="glyphicon glyphicon-ok-sign"></span>Quản lý hồ sơ bệnh nhân chỉnh nha mọi lúc mọi nơi, trên máy tính bảng và điện thoại di động.</li>
-                            <li><span className="glyphicon glyphicon-ok-sign"></span>Mẫu bệnh án chỉnh nha thông minh.</li>
+                            <li><span className="glyphicon glyphicon-ok-sign"></span>Quản lý hồ sơ bệnh nhân.</li>
+                            <li><span className="glyphicon glyphicon-ok-sign"></span>Mẫu bệnh án thông minh.</li>
                             <li><span className="glyphicon glyphicon-ok-sign"></span>Hình ảnh, video hỗ trợ tư vấn.</li>
                             <li><span className="glyphicon glyphicon-ok-sign"></span>Công cụ lập kế hoạch điều trị.</li>
                             <li><span className="glyphicon glyphicon-ok-sign"></span>Kế hoạch điều trị mẫu.</li>
-                            <li><span className="glyphicon glyphicon-ok-sign"></span>Một quy trình chỉnh nha chuyên nghiệp, ứng dụng.</li>
+                            <li><span className="glyphicon glyphicon-ok-sign"></span>Một quy trình chuyên nghiệp, ứng dụng.</li>
                             <li><span className="glyphicon glyphicon-ok-sign"></span>Tính năng bảo mật cao.</li>
                         </ul>
                     </div>
