@@ -14,8 +14,7 @@ class MainPage extends Component {
     }
 
     render() {
-        const { listBenhNhan } = this.props;
-        console.log('-AnhNT-list', listBenhNhan);
+        const { listBenhNhan, userData } = this.props;
         return (
             <div id="ManageRecordApp" className="maincontent">
                 <ul className="nav nav-tabs dropdown" role="tablist">
@@ -27,7 +26,9 @@ class MainPage extends Component {
                     <li><Link to="#"><i className="fa fa-question-circle"></i>Hồ sơ tư vấn</Link></li>
                     <li><Link to="#"><i className="fa fa-share-alt-square"></i>Hồ sơ chia sẻ</Link></li>
                 </ul>
-                <ListBenhNhan listBenhNhan={listBenhNhan} />
+                {listBenhNhan.length > 0 && <ListBenhNhan listBenhNhan={listBenhNhan} />}
+                {userData.role !== 'admin' && userData.role !== 'doctor'
+                && <span style={{ color: '#aaa' }}> Bạn là người sử dụng mới, bạn chưa được cấp quyền tạo bệnh án và quản lý! </span> }
             </div>
         )
     }

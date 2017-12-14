@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { apiurl } from '../../assets/consts';
 import { getCurrentDate } from '../../assets/globalFunc';
+import authen from './authen';
+
 import './patientInfo.css';
 
 class PatientInfo extends Component {
@@ -25,6 +27,7 @@ class PatientInfo extends Component {
         Facebook: '',
         Twitter: '',
 
+        message: '',
         isLoading: false,
     }
 
@@ -35,10 +38,9 @@ class PatientInfo extends Component {
 
     change = e => this.setState({ [e.target.name]: e.target.value });
 
-    callApi = () => {
+    create = () => {
         const that = this;
         this.setState({ isLoading: true }, () => {
-            console.log('-AnhNT-' + `${apiurl}/v1/thongtinbenhnhan/create`);
             axios({
                 method: 'post',
                 url: `${apiurl}/v1/thongtinbenhnhan/create`,
@@ -56,7 +58,7 @@ class PatientInfo extends Component {
                     alert(resdata.message);
                     that.setState({ isLoading: false });
                 }
-            }) .catch(error => {
+            }).catch(error => {
                 alert('Lỗi không xác định');
                 this.setState({ isLoading: false });
             });
@@ -64,8 +66,10 @@ class PatientInfo extends Component {
     }
 
     save = e => {
-        e.preventDefault();  
-        this.callApi();       
+        e.preventDefault();
+        const check = authen(this.state);
+        if (check.status === 1) this.create();
+        else this.setState({ message: check.message });
     }
 
     render() {
@@ -86,6 +90,8 @@ class PatientInfo extends Component {
                     <h1 className="maintitle">Thông tin hành chính</h1>
                     <form id="RecordHanhChinhForm" className="form-horizontal">
                         <div className="content">
+                        {/* Thông báo lỗi */}
+                        <div className="message" style={{ textAlign: 'center', color: 'red' }}>{this.state.message}</div>
                             <div className="col-sm-4">
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Ngày bắt đầu</label>
