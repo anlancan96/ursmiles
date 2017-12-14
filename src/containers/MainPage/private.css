@@ -213,3 +213,28 @@
 .nav-tabs>.active>a>i {
     color: #a79e00 !important;
 }
+
+.ng-item{
+    margin-left: 10px;
+}
+
+.list-group-1 .list-group-item1 {
+    padding-left: 40px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-color: #f2f2f2;
+    color: #444;
+}
+
+.list-group-item1:first-child {
+    border-top-width: 1px;
+}
+
+.list-group-item1 {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}

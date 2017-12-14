@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import { changeDateForm } from '../../assets/globalFunc';
+
 
 export default ({ data }) => (
     <tbody>
