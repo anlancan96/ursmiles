@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { apiurl } from '../../assets/consts';
-
+import jwt from 'jsonwebtoken';
 import './patientInfo.css';
+import { connect } from 'react-redux';
 
 class PatientInfo extends Component {
     state = {
@@ -49,11 +50,14 @@ class PatientInfo extends Component {
     change = e => this.setState({ [e.target.name]: e.target.value });
 
     callApi(state) {
+        let userData = this.props.userData;
+        let token = jwt.sign(userData, 'ursmiles');
         axios({
             method: 'post',
             url: `${apiurl}/v1/benhnhan/edit/${this.state.MaSo}`,
             data: {
-              ...state
+              ...state,
+              token
             },
         })
         .then((respone) => {
@@ -377,4 +381,10 @@ class PatientInfo extends Component {
     }
 }
 
-export default PatientInfo;
+const mapStateToProps = (state) => {
+    return {
+        userData : state.appReducer.userData
+    }
+}
+
+export default connect(mapStateToProps)(PatientInfo);
