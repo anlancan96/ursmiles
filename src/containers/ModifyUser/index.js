@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import jwt from 'jsonwebtoken';
-import { secret } from '../../assets/consts'; 
 import md5 from 'md5';
 
 import { modifyUserRequest } from './actions';
@@ -31,26 +29,24 @@ class ModifyUser extends Component {
         const { HoTen, Email1, Email2, DienThoai, DiaChi, isChangePassword, NewPassword, Repassword, Password } = this.state;
         const userID = this.props.userData.ID;
         if (!isChangePassword) this.props.modifyUserRequest({
-            isChangePassword,
             HoTen,
             Email1,
             Email2,
             DienThoai,
             DiaChi,
-            confirmPassword: jwt.sign({ token: md5(Password) }, secret),
+            confirmPassword: md5(Password),
         }, userID);
         else {
             if (NewPassword === '') this.setState({ message: 'Bạn chưa nhập mật khẩu mới!' });
             else if (NewPassword !== Repassword) this.setState({ message: 'Mật khẩu nhập lại không khớp!' });
             else this.props.modifyUserRequest({
-                isChangePassword,
                 HoTen,
                 Email1,
                 Email2,
                 DienThoai,
                 DiaChi,
-                confirmPassword: jwt.sign({ token: md5(Password) }, secret),
-                Password: jwt.sign({ token: md5(Repassword) }, secret),
+                confirmPassword: md5(Password),
+                Password: md5(Repassword),
             }, userID);
         }
         this.setState({ Password: '', NewPassword: '', Repassword: '' });
