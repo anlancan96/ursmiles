@@ -47,38 +47,43 @@ class PatientInfo extends Component {
         ThuocDaSuDung: '',
 
         isLoading: true,
+        onEdit: false,
     }
 
     componentDidMount() {
+        const token = localStorage.user;
         axios({
-            method: 'get',
-            url: `${apiurl}/v1/thongtinbenhnhan/${this.props.match.params.MaSo}`
-        }).then(response => {
-            console.log(response.data);
-            this.setState({ ...response.data, isLoading: false });
-        })
+            method: 'post',
+            url: `${apiurl}/v1/thongtinbenhnhan/${this.props.match.params.MaSo}`,
+            data: {
+                token,
+            },
+        }).then(res => {
+            if (res.data.status === 1) this.setState({ ...res.data.data, isLoading: false });
+            else if (res.data.status === 0) alert(res.data.message);
+        });
     }
 
-    change = e => this.setState({ [e.target.name]: e.target.value });
+    change = e => { this.state.onEdit && this.setState({ [e.target.name]: e.target.value }); }
 
-    check = e => this.setState({ [e.target.name]: !this.state[e.target.name] });
+    check = e => { this.state.onEdit && this.setState({ [e.target.name]: !this.state[e.target.name] }); }
 
-    callApi = () => {
+    callUpdate = () => {
         const that = this;
-        let userData = this.props.userData;
-        let token = jwt.sign(userData, 'ursmiles');
+        const userData = this.props.userData;
+        const token = localStorage.user;
         axios({
             method: 'post',
             url: `${apiurl}/v1/thongtinbenhnhan/edit/${this.state.MaSo}`,
             data: {
               ...that.state,
-              token
+              token,
             },
         })
         .then((response) => {
-            if(response.data.status){
+            if (response.data.status) {
                 alert(response.data.message);
-            }else {
+            } else {
                 alert(response.data.message);
             }
         })
@@ -89,26 +94,30 @@ class PatientInfo extends Component {
 
     save = e => {
         e.preventDefault();  
-        this.callApi();       
+        this.callUpdate();
+        this.changeMode();
+    }
+
+    changeMode = () => {
+        this.setState({ onEdit: !this.state.onEdit });
     }
 
     render() {
-        const { isLoading } = this.state;
+        const { isLoading, onEdit } = this.state;
         return (
             <div>
                 <div id="RecordHanhChinhApp" className="maincontent">
                     <div className="pull-right form-inline" style={{ margin: '14px 20px 0 0' }}>
-                        <span className="form-inline">
-                            <button type="button" disabled className="btn btn-default" style={{ fontWeight: 'bold', cursor: 'default' }}></button>
-                            <button type="button" className="btn btn-primary-clear"><i className="fa fa-edit" />Chỉnh sửa</button>
-                        </span>
                         <span>
-                            <select onChange={this.change} className="form-control">
+                            {/* <select onChange={this.change} className="form-control">
                                 <option value="TrangThai">Trạng thái</option>
                                 <option value="Kham">Khám</option>
                                 <option value="ChinhNha">Chỉnh nha</option>
-                            </select>
-                            <button onClick={this.save} className="btn btn-primary"><i className="fa fa-floppy-o"></i>Lưu</button>
+                            </select> */}
+                            {onEdit
+                                ? <button onClick={this.save} className="btn btn-primary"><i className="fa fa-floppy-o"></i>Lưu</button>
+                                : <button onClick={this.changeMode} type="button" className="btn btn-primary-clear"><i className="fa fa-edit" />Chỉnh sửa</button>
+                            }
                         </span>
                     </div>
                     <h1 className="maintitle">Thông tin hành chính</h1>
@@ -179,7 +188,7 @@ class PatientInfo extends Component {
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Dân tộc</label>
                                     <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="DanToc" onChange={this.change} className="form-control" />
+                                        <input type="text" name="DanToc" value={this.state.DanToc} onChange={this.change} className="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -192,30 +201,19 @@ class PatientInfo extends Component {
                                 </div>
                             </div>
                            
-                           
+                            <div className="col-sm-4">
+                                <div className="form-group">
+                                    <label className="col-xs-4 col-sm-5 control-label">Mã hồ sơ</label>
+                                    <div className="col-xs-8 col-sm-7">
+                                        <input type="text" name="MaHoSo" value={this.state.MaHoSo} onChange={() => {}} className="form-control" />
+                                    </div>
+                                </div>
+                            </div>
                             <div className="col-sm-4" style={{ clear: 'left' }}>
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Số di động</label>
                                     <div className="col-xs-8 col-sm-7">
                                         <input type="text" name="DienThoai" value={this.state.DienThoai} onChange={this.change} className="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div className="col-sm-4">
-                                <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Mã hồ sơ</label>
-                                    <div className="col-xs-8 col-sm-7">
-                                        <input type="text" name="MaHoSo" value={this.state.MaHoSo} className="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4" style={{ clear: 'left' }}>
-                                <div className="form-group">
-                                    <label className="col-xs-4 col-sm-5 control-label">Email1</label>
-                                    <div className="col-xs-8 col-sm-7">
-                                        <input type="text" value={this.state.Email1} name="Email1" className="form-control" />
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -227,6 +225,16 @@ class PatientInfo extends Component {
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div className="col-sm-4" style={{ clear: 'left' }}>
+                                <div className="form-group">
+                                    <label className="col-xs-4 col-sm-5 control-label">Email</label>
+                                    <div className="col-xs-8 col-sm-7">
+                                        <input type="text" value={this.state.Email} onChange={this.change} name="Email" className="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="col-sm-4">
                                 <div className="form-group">
                                     <label className="col-xs-4 col-sm-5 control-label">Twitter</label>

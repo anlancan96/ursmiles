@@ -74,7 +74,8 @@ class Register extends Component {
         });
     }
 
-    render(){
+    render() {
+        const { isLoading } = this.state;
         return(
             <div>
                 <Header/>
@@ -130,7 +131,7 @@ class Register extends Component {
                             <div className="message">{this.state.message}</div>
 
                             <div className="register_button">
-                                <button onClick={this.submit} className="btn btn-primary">Tạo</button>
+                                <button onClick={this.submit} className="btn btn-primary" disabled={isLoading}>Tạo</button>
                             </div>
                         </form>
                     </div>
