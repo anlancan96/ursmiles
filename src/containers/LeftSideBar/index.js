@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { logout } from '../App/actions';
+import { unfocusBenhAn } from '../MainPage/actions';
 
 class LeftSidebar extends Component {
     render() {
-        const { userData } = this.props;
+        const { userData, focusBenhAn } = this.props;
         return(
             <div id="SideBar" className="sidebar">
                 <div className="login-panel clearfix" >
@@ -26,13 +28,14 @@ class LeftSidebar extends Component {
                     <div className="panel panel-default">
                         <div className="panel-heading">Quản lý hồ sơ</div>
                         <div className="list-group">
-                                <Link to="/ursmiles" data-menu="hosobenhnhan" className="list-group-item"><i className="fa fa-file-text"></i>Hồ sơ bệnh nhân</Link>
+                                <Link to="/ursmiles" onClick={this.props.unfocusBenhAn} data-menu="hosobenhnhan" className="list-group-item"><i className="fa fa-file-text"></i>Hồ sơ bệnh nhân</Link>
                                 
-                                    <div className="list-group-1">
-                                        <Link to="/ursmiles" data-menu="hosobenhnhan" className="list-group-item1"><i className="fa fa-file-text-o"><span className="ng-item">Hành Chính</span></i></Link>
-                                        <Link to="/ursmiles/khamtrongmieng" data-menu="hosobenhnhan" className="list-group-item1"><i className="fa fa-file-text-o"><span className="ng-item">Khám trong miệng</span></i></Link>
-                                        <Link to="/ursmiles/khamngoaimat" data-menu="hosobenhnhan" className="list-group-item1"><i className="fa fa-file-text-o"><span className="ng-item">Khám ngoài mặt</span></i></Link>    
-                                    </div>
+                                    {this.props.isShowListButton && <div className="list-group-1">
+                                        <Link to={`/ursmiles/hosobenhnhan/${focusBenhAn}`} data-menu="hosobenhnhan" className="list-group-item1"><i className="fa fa-file-text-o"><span className="ng-item">Hành Chính</span></i></Link>
+                                        <Link to={`/ursmiles/khamtrongmieng/${focusBenhAn}`} data-menu="hosobenhnhan" className="list-group-item1"><i className="fa fa-file-text-o"><span className="ng-item">Khám trong miệng</span></i></Link>
+                                        <Link to={`/ursmiles/khamngoaimat/${focusBenhAn}`} data-menu="hosobenhnhan" className="list-group-item1"><i className="fa fa-file-text-o"><span className="ng-item">Khám ngoài mặt</span></i></Link>    
+                                    </div>}
+
                                 <a href="#" data-menu="FinancialReport" className="list-group-item"><i className="fa fa-bar-chart"></i>Thống kê tài chính</a>
                                 <a href="#" data-menu="PriceList" className="list-group-item"><i className="fa fa-dollar"></i>Bảng giá</a>
                                 <a href="#" data-menu="UserTaskLogs" className="list-group-item"><i className="fa fa-history"></i>Lịch sử thao tác</a>
@@ -56,11 +59,13 @@ class LeftSidebar extends Component {
 
 const mapStateToProps = state => ({
     userData: state.appReducer.userData,
-    isVisible : state.mainPageReducer.isVisible,
+    focusBenhAn : state.mainPageReducer.focusBenhAn,
+    isShowListButton : state.mainPageReducer.isShowListButton,
 });
 
 const mapsDispatchToProps = ({
     logout,
+    unfocusBenhAn,
 });
 
 export default connect(mapStateToProps, mapsDispatchToProps)(LeftSidebar);

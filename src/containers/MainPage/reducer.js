@@ -1,6 +1,7 @@
 const initialState = {
     listBenhNhan: [],
-    isVisible : false,
+    isShowListButton: false,
+    focusBenhAn : '',
 };
 
 const mainPageReducer = (state = initialState, action = {}) => {
@@ -16,8 +17,11 @@ const mainPageReducer = (state = initialState, action = {}) => {
         case 'LOGIN_SUCCESS': {
             return { ...state, isLoading: false, errorMessage: '' };
         }
-        case 'TOGGLE_IS_ADDING': {
-            return { ...state, isVisible: true};
+        case 'FOCUS_BENH_AN': {
+            return { ...state, focusBenhAn: action.MaSo, isShowListButton: true };
+        }
+        case 'UNFOCUS_BENH_AN': {
+            return { ...state, focusBenhAn: '', isShowListButton: false };
         }
         default:
             return state;

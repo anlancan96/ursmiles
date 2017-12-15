@@ -4,6 +4,7 @@ import { secret } from '../../assets/consts';
 const initialState = {
     isLogin: false,
     userData: {},
+    focusBenhAn: '-1',
 };
 
 const appReducer = (state = initialState, action = {}) => {

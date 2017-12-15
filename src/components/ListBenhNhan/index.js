@@ -16,6 +16,7 @@ export default (props) => (
                 </tr>
             </thead>
             {props.listBenhNhan.map((item, index) => <ItemBenhNhan
+                focusBenhAn={props.focusBenhAn}
                 key={`_${index}`}
                 data={item}
             /> )}

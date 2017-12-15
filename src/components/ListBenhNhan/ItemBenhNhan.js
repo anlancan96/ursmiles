@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { changeDateForm } from '../../assets/globalFunc';
 
 
-export default ({ data }) => (
+export default ({ data, focusBenhAn }) => (
     <tbody>
         <tr>
             <td className="text-nowrap">{data.ID}</td>
             <td className="text-nowrap">
-                <Link to={`/ursmiles/hosobenhnhan/${data.MaSo}`} >{ data.Ho + ' ' + data.Ten }</Link>
+                <Link to={`/ursmiles/hosobenhnhan/${data.MaSo}`} onClick={() => focusBenhAn(data.MaSo)} >{ data.Ho + ' ' + data.Ten }</Link>
             </td>
             <td>
                 {data.GioiTinh}
