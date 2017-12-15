@@ -7,9 +7,11 @@ function* fetchModify(action) {
         console.log('emit');
         const patientInfo = action.patientInfo;
         const token = action.token;
+        const MaSo = action.MaSo;
+        console.log(MaSo);
         let res_data;
         
-        const respone = yield call(axios.post,`${apiurl}/v1/khamtrongmieng/edit/44`,{ ...patientInfo, token, })
+        const respone = yield call(axios.post,`${apiurl}/v1/khamtrongmieng/edit/${MaSo}`,{ ...patientInfo, token, })
         if(respone.data.status === 1){
             yield put({ type: 'EMIT_MODIFY_SUCCESS', message: respone.data.message});
         }else if(respone.data.status === 0){

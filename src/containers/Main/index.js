@@ -34,8 +34,8 @@ export default class Main extends React.Component {
                             <Route path="/ursmiles/create" component={CreatePatientInfoPage} />
                             <Route path="/ursmiles/hosobenhnhan/:MaSo" component={PatientInfo}/>
                             <Route path="/ursmiles/modify" component={ModifyUser}/>
-                            <Route path="/ursmiles/khamtrongmieng" component={KhamTrongMieng}/>
-                            <Route path="/ursmiles/khamngoaimat" component={KhamNgoaiMatPage}/>
+                            <Route path="/ursmiles/khamtrongmieng/:MaSo" component={KhamTrongMieng}/>
+                            <Route path="/ursmiles/khamngoaimat/:MaSo" component={KhamNgoaiMatPage}/>
                             <Route path="/ursmiles/adminpage" component={AdminPage}/>
                             <Route path="" component={NotFoundPage} />
                         </Switch>
